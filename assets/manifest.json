@@ -1,0 +1,146 @@
+{
+    "name": "Swaccha Andhra Dashboard",
+    "short_name": "Swaccha AP",
+    "description": "Waste management monitoring dashboard for Andhra Pradesh state",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#FFFBF5",
+    "theme_color": "#F2C94C",
+    "orientation": "portrait-primary",
+    "icons": [
+      {
+        "src": "/assets/icons/icon-72x72.png",
+        "sizes": "72x72",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-128x128.png",
+        "sizes": "128x128",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-152x152.png",
+        "sizes": "152x152",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-384x384.png",
+        "sizes": "384x384",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/assets/icons/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any maskable"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/assets/screenshots/dashboard-mobile.jpg",
+        "sizes": "750x1334",
+        "type": "image/jpeg",
+        "platform": "narrow",
+        "label": "Swaccha Andhra Dashboard on Mobile"
+      },
+      {
+        "src": "/assets/screenshots/dashboard-tablet.jpg",
+        "sizes": "1280x800",
+        "type": "image/jpeg",
+        "platform": "wide",
+        "label": "Swaccha Andhra Dashboard on Tablet"
+      },
+      {
+        "src": "/assets/screenshots/dashboard-desktop.jpg",
+        "sizes": "1920x1080",
+        "type": "image/jpeg",
+        "platform": "wide",
+        "label": "Swaccha Andhra Dashboard on Desktop"
+      }
+    ],
+    "shortcuts": [
+      {
+        "name": "Dashboard",
+        "short_name": "Dashboard",
+        "description": "View the main dashboard",
+        "url": "/",
+        "icons": [
+          {
+            "src": "/assets/icons/shortcut-dashboard.png",
+            "sizes": "96x96",
+            "type": "image/png"
+          }
+        ]
+      },
+      {
+        "name": "Reports",
+        "short_name": "Reports",
+        "description": "View waste collection reports",
+        "url": "/reports",
+        "icons": [
+          {
+            "src": "/assets/icons/shortcut-reports.png",
+            "sizes": "96x96",
+            "type": "image/png"
+          }
+        ]
+      },
+      {
+        "name": "Analytics",
+        "short_name": "Analytics",
+        "description": "View data analytics and insights",
+        "url": "/analytics",
+        "icons": [
+          {
+            "src": "/assets/icons/shortcut-analytics.png",
+            "sizes": "96x96",
+            "type": "image/png"
+          }
+        ]
+      }
+    ],
+    "categories": ["utilities", "productivity", "government"],
+    "lang": "en-US",
+    "dir": "ltr",
+    "prefer_related_applications": false,
+    "related_applications": [],
+    "iarc_rating_id": "",
+    "share_target": {
+      "action": "/upload",
+      "method": "POST",
+      "enctype": "multipart/form-data",
+      "params": {
+        "title": "title",
+        "text": "text",
+        "url": "url",
+        "files": [
+          {
+            "name": "records",
+            "accept": ["text/csv", "application/vnd.ms-excel"]
+          }
+        ]
+      }
+    }
+  }

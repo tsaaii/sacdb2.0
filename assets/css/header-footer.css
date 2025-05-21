@@ -1,0 +1,218 @@
+/* 
+assets/css/header-footer.css - Header and Footer styles
+
+Contains styles for the header and footer components
+*/
+
+/* Header Styles */
+.header {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 0.75rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+  
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .header-title h1 {
+    font-size: 1.25rem;
+    margin: 0;
+    color: var(--text-light);
+  }
+  
+  .header-logo {
+    height: 36px;
+    width: auto;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+  }
+  
+  .header-nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.5rem 0;
+    transition: color var(--transition-speed);
+    font-weight: 500;
+    position: relative;
+  }
+  
+  .header-nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-yellow);
+    transition: width var(--transition-speed);
+  }
+  
+  .header-nav-link:hover:after {
+    width: 100%;
+  }
+  
+  .header-nav-link.active:after {
+    width: 100%;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  /* Clock and Time Display */
+  .clock-display {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    opacity: 0.9;
+  }
+  
+  /* Footer Styles */
+  .footer {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 1.25rem 0;
+    margin-top: 2rem;
+  }
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-logo img {
+    height: 28px;
+    width: auto;
+  }
+  
+  .footer-logo span {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .footer-link {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+  }
+  
+  .footer-link:hover {
+    color: var(--primary-yellow);
+  }
+  
+  .footer-copyright {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+  }
+  
+  /* Responsive styles for header and footer */
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .header-nav {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+      scrollbar-width: thin; /* Thinner scrollbar for Firefox */
+    }
+    
+    .header-nav::-webkit-scrollbar {
+      height: 4px; /* Thin scrollbar for Chrome/Safari */
+    }
+    
+    .footer-content {
+      flex-direction: column;
+      gap: 1.25rem;
+      text-align: center;
+    }
+    
+    .footer-links {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+  
+  /* TV Display Optimization (large screens) */
+  @media (min-width: 1800px) {
+    .header-logo {
+      height: 42px;
+    }
+    
+    .header-title h1 {
+      font-size: 1.5rem;
+    }
+    
+    .header-nav-link {
+      font-size: 1.1rem;
+    }
+    
+    .footer-logo img {
+      height: 36px;
+    }
+  }
+  
+  /* Extra large TV displays (100-inch and above) */
+  @media (min-width: 2560px) {
+    .header-logo {
+      height: 50px;
+    }
+    
+    .footer {
+      padding: 1.75rem 0;
+    }
+  }
+  
+  /* PWA Specific Styles for Header/Footer */
+  @media (display-mode: standalone) {
+    .header {
+      padding-top: env(safe-area-inset-top);
+      height: calc(56px + env(safe-area-inset-top));
+    }
+    
+    .footer {
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    
+    /* Improved touch targets for PWA */
+    .header-nav-link,
+    .footer-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+  }

@@ -1,0 +1,306 @@
+/* 
+assets/css/pwa.css - Progressive Web App specific styles
+
+Contains PWA-specific styles for installation, updates, and offline mode
+*/
+
+/* PWA update notification */
+.pwa-update-notification {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 1rem;
+    z-index: 9999;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pwa-update-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .pwa-update-icon {
+    margin-right: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .pwa-update-message {
+    flex: 1;
+  }
+  
+  .pwa-update-message p {
+    margin: 0;
+  }
+  
+  .pwa-update-button {
+    background-color: var(--primary-yellow);
+    color: var(--text-dark);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 1rem;
+  }
+  
+  /* Connectivity notification */
+  .connectivity-notification {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s ease-out;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .connectivity-notification.online {
+    background-color: var(--secondary-green);
+  }
+  
+  .connectivity-notification.offline {
+    background-color: var(--accent-red);
+  }
+  
+  .connectivity-notification.fadeout {
+    opacity: 0;
+  }
+  
+  @keyframes slideDown {
+    from { transform: translate(-50%, -20px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+  }
+  
+  /* PWA Install Button */
+  .pwa-install-button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 900;
+    transition: transform 0.25s, background-color 0.25s;
+  }
+  
+  .pwa-install-button:hover {
+    background-color: var(--secondary-green);
+    transform: translateY(-3px);
+  }
+  
+  /* Offline indicator in header */
+  .offline-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--accent-red);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    margin-right: 0.75rem;
+  }
+  
+  .offline-indicator i {
+    font-size: 0.85rem;
+  }
+  
+  /* Splash screen for PWA */
+  .pwa-splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--primary-green);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .pwa-splash-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .pwa-splash-logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+  
+  .pwa-splash-title {
+    color: var(--text-light);
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .pwa-splash-subtitle {
+    color: var(--text-light);
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+  }
+  
+  .pwa-splash-loader {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-yellow);
+    animation: splash-spin 1s infinite linear;
+  }
+  
+  @keyframes splash-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Offline page styles */
+  .offline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    text-align: center;
+    background-color: var(--background-light);
+  }
+  
+  .offline-logo {
+    width: 120px;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+  
+  .offline-icon {
+    font-size: 4rem;
+    color: var(--primary-yellow);
+    margin-bottom: 1.5rem;
+  }
+  
+  .offline-title {
+    font-size: 2rem;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+  }
+  
+  .offline-message {
+    margin-bottom: 2rem;
+    max-width: 600px;
+    color: var(--text-dark);
+  }
+  
+  .offline-button {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .offline-footer {
+    margin-top: 3rem;
+    color: var(--text-dark);
+    opacity: 0.7;
+  }
+  
+  /* Specific styles for installed PWA view */
+  @media (display-mode: standalone) {
+    /* Add safe area insets for notched phones */
+    body {
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+    
+    /* Remove browser-like elements when running as installed app */
+    .header {
+      padding-top: max(env(safe-area-inset-top), 0.75rem);
+    }
+    
+    .footer {
+      padding-bottom: max(env(safe-area-inset-bottom), 1.25rem);
+    }
+    
+    /* Hide PWA install button when already installed */
+    #install-container {
+      display: none !important;
+    }
+  }
+  
+  /* On smaller screens, make the PWA elements more compact */
+  @media (max-width: 768px) {
+    .pwa-install-button {
+      bottom: 1rem;
+      right: 50%;
+      transform: translateX(50%);
+      padding: 0.625rem 1rem;
+      font-size: 0.9rem;
+    }
+    
+    .pwa-install-button:hover {
+      transform: translateX(50%) translateY(-3px);
+    }
+    
+    .pwa-update-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 0.75rem;
+    }
+    
+    .pwa-update-message {
+      margin-bottom: 0.5rem;
+    }
+    
+    .pwa-update-button {
+      margin-left: 0;
+      width: 100%;
+      padding: 0.625rem;
+    }
+    
+    .connectivity-notification {
+      width: 90%;
+      text-align: center;
+    }
+    
+    .pwa-splash-logo {
+      width: 120px;
+    }
+    
+    .pwa-splash-title {
+      font-size: 1.75rem;
+    }
+    
+    .pwa-splash-subtitle {
+      font-size: 1rem;
+    }
+  }

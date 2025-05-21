@@ -1,11 +1,11 @@
 /* 
 assets/styles.css - Swaccha Andhra Dashboard Styles
 
-This file contains all styles for the new dashboard with earth tones theme
-optimized for mobile, desktop, and large TV displays (100-inch).
+Updated with light theme with minimal yellow tint and reduced card sizes
+for better screen utilization on computer and TV displays.
 */
 
-/* Earth Tones Color Palette */
+/* Earth Tones Color Palette - Lighter version */
 :root {
     --primary-yellow: #F2C94C;      /* Warm yellow */
     --secondary-yellow: #F2D06B;    /* Light yellow */
@@ -16,18 +16,18 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     --accent-red: #C74A3C;          /* Earthy red */
     --light-red: #E76F51;           /* Lighter red */
     
-    /* Neutral Colors */
-    --background-light: #FFFBF0;    /* Light cream background */
+    /* Neutral Colors - Lighter theme */
+    --background-light: #FFFBF5;    /* Very light cream background with yellow tint */
     --background-dark: #2C2C2C;     /* Off black for dark mode */
     --text-dark: #333333;           /* Near black for text */
     --text-light: #FEFEFE;          /* Off white for text */
-    --border-light: #E0E0D5;        /* Light border color */
+    --border-light: #E8E4D0;        /* Light border color with yellow tint */
     
     /* UI Elements */
-    --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* Lighter shadow */
     --transition-speed: 0.25s;
     --border-radius: 8px;
-    --card-border-radius: 12px;
+    --card-border-radius: 10px;
   }
   
   /* Base Styles */
@@ -55,17 +55,17 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   }
   
   h1 {
-    font-size: 2.25rem;
-    letter-spacing: -0.5px;
-  }
-  
-  h2 {
-    font-size: 1.75rem;
+    font-size: 2rem;
     letter-spacing: -0.3px;
   }
   
-  h3 {
+  h2 {
     font-size: 1.5rem;
+    letter-spacing: -0.2px;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
   }
   
   p {
@@ -77,18 +77,18 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 1rem;
   }
   
   /* Header Styles */
   .header {
     background-color: var(--primary-green);
     color: var(--text-light);
-    padding: 1rem 0;
+    padding: 0.75rem 0;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
   }
   
   .header-content {
@@ -100,23 +100,23 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   .header-title {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
   }
   
   .header-title h1 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     margin: 0;
     color: var(--text-light);
   }
   
   .header-logo {
-    height: 40px;
+    height: 36px;
     width: auto;
   }
   
   .header-nav {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.25rem;
     align-items: center;
   }
   
@@ -154,15 +154,15 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     align-items: center;
   }
   
-  /* Dashboard Grid Layout */
+  /* Dashboard Grid Layout - Reduced sizing for better fit */
   .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin: 2rem 0;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
   }
   
-  /* Card Styles */
+  /* Card Styles - Further reduced sizing for better fit */
   .card {
     background-color: white;
     border-radius: var(--card-border-radius);
@@ -171,21 +171,23 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
     position: relative;
     height: 0;
-    padding-bottom: 100%; /* Creates square aspect ratio */
+    padding-bottom: 60%; /* Reduced by additional 20% but kept square aspect ratio */
+    max-height: 200px; /* Maximum height to prevent oversized cards on large screens */
   }
   
   .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   
+  /* Card content styles - optimized for smaller cards */
   .card-content {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 1.5rem;
+    padding: 0.75rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -195,18 +197,18 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
   
   .card-title {
-    font-size: 1.25rem;
+    font-size: 0.875rem;
     font-weight: 600;
     color: var(--primary-green);
     margin: 0;
   }
   
   .card-icon {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: var(--primary-yellow);
   }
   
@@ -216,17 +218,18 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0.25rem 0;
   }
   
   .card-value {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.125rem;
     color: var(--primary-brown);
   }
   
   .card-label {
-    font-size: 0.875rem;
+    font-size: 0.7rem;
     color: var(--secondary-brown);
   }
   
@@ -234,14 +237,14 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 1rem;
-    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
   }
   
   .card-change {
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 3px;
   }
   
   .card-change-positive {
@@ -258,14 +261,14 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   }
   
   /* Card Theme Variations */
-  .card-theme-a { border-top: 4px solid var(--primary-yellow); }
-  .card-theme-b { border-top: 4px solid var(--primary-brown); }
-  .card-theme-c { border-top: 4px solid var(--primary-green); }
-  .card-theme-d { border-top: 4px solid var(--accent-red); }
-  .card-theme-e { border-top: 4px solid var(--secondary-yellow); }
-  .card-theme-f { border-top: 4px solid var(--secondary-brown); }
-  .card-theme-g { border-top: 4px solid var(--secondary-green); }
-  .card-theme-h { border-top: 4px solid var(--light-red); }
+  .card-theme-a { border-top: 3px solid var(--primary-yellow); }
+  .card-theme-b { border-top: 3px solid var(--primary-brown); }
+  .card-theme-c { border-top: 3px solid var(--primary-green); }
+  .card-theme-d { border-top: 3px solid var(--accent-red); }
+  .card-theme-e { border-top: 3px solid var(--secondary-yellow); }
+  .card-theme-f { border-top: 3px solid var(--secondary-brown); }
+  .card-theme-g { border-top: 3px solid var(--secondary-green); }
+  .card-theme-h { border-top: 3px solid var(--light-red); }
   .card-theme-i { 
     background: linear-gradient(135deg, white 0%, white 97%, var(--primary-yellow) 97%, var(--primary-yellow) 100%);
   }
@@ -274,8 +277,8 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   .footer {
     background-color: var(--primary-green);
     color: var(--text-light);
-    padding: 1.5rem 0;
-    margin-top: 3rem;
+    padding: 1.25rem 0;
+    margin-top: 2rem;
   }
   
   .footer-content {
@@ -287,22 +290,22 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   .footer-logo {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
   
   .footer-logo img {
-    height: 32px;
+    height: 28px;
     width: auto;
   }
   
   .footer-logo span {
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 1rem;
   }
   
   .footer-links {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
   .footer-link {
@@ -317,7 +320,7 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   
   .footer-copyright {
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
   
   /* Button Styles */
@@ -325,7 +328,7 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 0.625rem 1.25rem;
+    padding: 0.5rem 1rem;
     background-color: var(--primary-yellow);
     color: var(--text-dark);
     border: none;
@@ -335,6 +338,7 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     transition: background-color var(--transition-speed), transform var(--transition-speed);
     text-decoration: none;
     gap: 0.5rem;
+    font-size: 0.9rem;
   }
   
   .btn:hover {
@@ -373,29 +377,29 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   
   /* Custom Dashboard Components */
   .stats-summary {
-    padding: 1.5rem;
+    padding: 1.25rem;
     background-color: white;
     border-radius: var(--card-border-radius);
     box-shadow: var(--card-shadow);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
   
   .stats-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
   
   .stats-filters {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
   }
   
   .stat-item {
@@ -405,20 +409,20 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   }
   
   .stat-value {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--primary-brown);
     margin-bottom: 0.25rem;
   }
   
   .stat-label {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--secondary-brown);
   }
   
   /* Clock and Time Display */
   .clock-display {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--text-light);
     opacity: 0.9;
   }
@@ -430,28 +434,228 @@ optimized for mobile, desktop, and large TV displays (100-inch).
   }
   
   .time-period-selector {
-    min-width: 150px;
+    min-width: 140px;
+  }
+  
+  /* Page-specific styles */
+  .page-header {
+    margin: 1.5rem 0;
+  }
+  
+  .page-header p {
+    color: var(--secondary-brown);
+    margin-top: -0.5rem;
+  }
+  
+  /* Chart container styles */
+  .chart-card {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .chart-card.wide {
+    grid-column: span 2;
+  }
+  
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .metrics-card {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem;
+  }
+  
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+  }
+  
+  .metric-label {
+    font-size: 0.75rem;
+    color: var(--secondary-brown);
+  }
+  
+  /* Report page styles */
+  .filter-section {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filter-item {
+    flex: 1;
+    min-width: 180px;
+  }
+  
+  .filter-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  .report-table-container {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+  
+  .report-summary {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+  }
+  
+  .summary-item {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  /* Upload page styles */
+  .upload-section {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  .upload-container {
+    border: 2px dashed var(--border-light);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .upload-icon {
+    font-size: 3rem;
+    color: var(--secondary-green);
+    margin-bottom: 1rem;
+  }
+  
+  .upload-formats {
+    font-size: 0.8rem;
+    color: var(--secondary-brown);
+    margin-top: 1rem;
+  }
+  
+  /* Settings page styles */
+  .settings-section {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .settings-option {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .settings-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Form styles */
+  .form-container {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+    margin-top: 0.25rem;
+  }
+  
+  .form-link {
+    display: block;
+    text-align: right;
+    margin-top: 1rem;
+    color: var(--primary-green);
+  }
+  
+  /* Error page styles */
+  .error-container {
+    text-align: center;
+    padding: 3rem 0;
+  }
+  
+  .error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    color: var(--primary-yellow);
+    margin-bottom: 0;
+    line-height: 1;
+  }
+  
+  .error-title {
+    margin-top: 0;
   }
   
   /* Media Queries for Responsive Design */
   /* Tablet and small laptop */
   @media (max-width: 1024px) {
     .dashboard-grid {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
     
-    .card-value {
-      font-size: 2rem;
+    .analytics-grid {
+      grid-template-columns: 1fr;
     }
     
-    .header-content {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    
-    .header-nav {
-      width: 100%;
-      justify-content: space-between;
+    .chart-card.wide {
+      grid-column: span 1;
     }
   }
   
@@ -460,119 +664,183 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     .header-content {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 0.75rem;
     }
     
     .header-nav {
       width: 100%;
       overflow-x: auto;
       padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
+      scrollbar-width: thin; /* Thinner scrollbar for Firefox */
+    }
+    
+    .header-nav::-webkit-scrollbar {
+      height: 4px; /* Thin scrollbar for Chrome/Safari */
     }
     
     .dashboard-grid {
-      grid-template-columns: 1fr;
-      gap: 1rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+    
+    .card {
+      padding-bottom: 60%; /* Keep square aspect ratio */
+      max-height: none; /* Remove max height constraint on mobile */
+    }
+    
+    .card-value {
+      font-size: 1.5rem; /* Keep values readable */
     }
     
     .footer-content {
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.25rem;
       text-align: center;
     }
     
     .footer-links {
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.75rem;
     }
     
     .stats-header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1rem;
+      gap: 0.75rem;
     }
     
-    .stats-grid {
-      grid-template-columns: 1fr;
+    .report-summary {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    /* Better tap targets for mobile */
+    .btn, 
+    .header-nav-link,
+    .footer-link {
+      min-height: 44px;
+      padding: 0.5rem 0.75rem;
     }
   }
   
-  /* TV Display Optimization (ultra large screens) */
+  /* Small mobile devices */
+  @media (max-width: 480px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, 1fr); /* Keep 2 cards per row for better space usage */
+      gap: 0.5rem;
+    }
+    
+    .card {
+      padding-bottom: 60%; /* Keep square aspect ratio */
+    }
+    
+    /* Make values and titles slightly smaller on very small screens */
+    .card-value {
+      font-size: 1.25rem;
+    }
+    
+    .card-title {
+      font-size: 0.8rem;
+    }
+    
+    .card-icon {
+      font-size: 0.9rem;
+    }
+    
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    /* More compact stats for small screens */
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-value {
+      font-size: 1.35rem;
+    }
+  }
+  
+  /* TV Display Optimization (large screens) */
   @media (min-width: 1800px) {
     html {
-      font-size: 18px;
+      font-size: 16px; /* Base font size for large screens */
     }
     
     .container {
       max-width: 1800px;
+      padding: 0 2rem;
     }
     
     .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(5, 1fr); /* Show 5 cards per row on larger displays */
+      gap: 1rem;
     }
     
     .card {
-      border-radius: 16px;
-    }
-    
-    .card-content {
-      padding: 2rem;
-    }
-    
-    .card-title {
-      font-size: 1.5rem;
+      padding-bottom: 60%; /* Maintain square aspect ratio */
+      max-height: 220px; /* Slightly larger max height for TV displays */
     }
     
     .card-value {
-      font-size: 3.5rem;
+      font-size: 1.75rem; /* Slightly larger values for readability */
     }
     
-    .card-label {
-      font-size: 1.125rem;
+    .card-title {
+      font-size: 0.95rem;
     }
   }
   
   /* Extra large TV displays (100-inch and above) */
   @media (min-width: 2560px) {
     html {
-      font-size: 22px;
+      font-size: 18px; /* Larger base font size for very large screens */
     }
     
     .container {
       max-width: 2400px;
-    }
-    
-    .header {
-      padding: 1.5rem 0;
-    }
-    
-    .header-logo {
-      height: 60px;
+      padding: 0 3rem;
     }
     
     .dashboard-grid {
-      margin: 3rem 0;
-      gap: 3rem;
+      grid-template-columns: repeat(6, 1fr); /* Show 6 cards per row on very large displays */
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+    
+    .card {
+      padding-bottom: 60%; /* Maintain square aspect ratio */
+      max-height: 240px; /* Even larger max height for massive displays */
+    }
+    
+    .header-logo {
+      height: 50px;
     }
     
     .card-value {
-      font-size: 4rem;
-    }
-    
-    .card-icon {
       font-size: 2rem;
     }
     
-    .footer {
-      padding: 2.5rem 0;
+    .card-title {
+      font-size: 1rem;
+    }
+    
+    .card-icon {
+      font-size: 1.25rem;
+    }
+    
+    /* Improve readability of stats on very large displays */
+    .stats-summary {
+      padding: 1.5rem;
     }
     
     .stat-value {
-      font-size: 3rem;
+      font-size: 2.25rem;
     }
     
     .stat-label {
-      font-size: 1.25rem;
+      font-size: 0.9rem;
     }
   }
   
@@ -586,7 +854,7 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     
     .header {
       padding-top: env(safe-area-inset-top);
-      height: calc(64px + env(safe-area-inset-top));
+      height: calc(56px + env(safe-area-inset-top));
     }
     
     .footer {
@@ -603,71 +871,109 @@ optimized for mobile, desktop, and large TV displays (100-inch).
     }
   }
   
-  /* Dark Mode - Optional */
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --background-light: var(--background-dark);
-      --text-dark: var(--text-light);
-      --border-light: #3a3a3a;
-    }
-    
-    .card {
-      background-color: #383838;
-    }
-    
-    .card-title,
-    .card-value {
-      color: #f7f7f7;
-    }
-    
-    .card-label {
-      color: #cccccc;
-    }
-    
-    /* Adjust color brightness for better contrast in dark mode */
-    .card-theme-a { border-top: 4px solid rgba(242, 201, 76, 0.9); }
-    .card-theme-i { 
-      background: linear-gradient(135deg, #383838 0%, #383838 97%, var(--primary-yellow) 97%, var(--primary-yellow) 100%);
-    }
-    
-    .stats-summary {
-      background-color: #383838;
-    }
+  /* PWA update notification */
+  .pwa-update-notification {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 1rem;
+    z-index: 9999;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
   }
   
-  /* Custom Animation Classes */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .pwa-update-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
   
-  .fade-in {
-    animation: fadeIn 0.3s forwards;
+  .pwa-update-icon {
+    margin-right: 1rem;
+    font-size: 1.25rem;
   }
   
-  /* Dash-specific adjustments */
-  .dash-dropdown .Select-control {
-    border-color: var(--border-light);
+  .pwa-update-message {
+    flex: 1;
+  }
+  
+  .pwa-update-message p {
+    margin: 0;
+  }
+  
+  .pwa-update-button {
+    background-color: var(--primary-yellow);
+    color: var(--text-dark);
+    border: none;
     border-radius: var(--border-radius);
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 1rem;
   }
   
-  .dash-dropdown .Select-control:hover {
-    border-color: var(--primary-green);
+  /* Connectivity notification */
+  .connectivity-notification {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    color: white;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideDown 0.3s ease-out;
+    transition: opacity 0.5s ease-out;
   }
   
-  .dash-dropdown .Select-menu-outer {
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    border-color: var(--primary-green);
+  .connectivity-notification.online {
+    background-color: var(--secondary-green);
   }
   
-  .dash-dropdown .Select-value-label {
-    color: var(--text-dark) !important;
+  .connectivity-notification.offline {
+    background-color: var(--accent-red);
   }
   
-  .dash-dropdown .is-focused:not(.is-open) > .Select-control {
-    border-color: var(--primary-green);
-    box-shadow: 0 0 0 1px var(--primary-green);
+  .connectivity-notification.fadeout {
+    opacity: 0;
+  }
+  
+  @keyframes slideDown {
+    from { transform: translate(-50%, -20px); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
   }
   
   /* Add Font Awesome icon support */
   @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+  
+  /* PWA Install Button */
+  .pwa-install-button {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    z-index: 900;
+    transition: transform 0.25s, background-color 0.25s;
+  }
+  
+  .pwa-install-button:hover {
+    background-color: var(--secondary-green);
+    transform: translateY(-3px);
+  }

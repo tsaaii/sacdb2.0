@@ -1,0 +1,103 @@
+/* 
+assets/css/dark-mode.css - Dark mode styles
+
+Contains dark mode specific styles and overrides
+*/
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+      --background-light: var(--background-dark);
+      --text-dark: var(--text-light);
+      --border-light: #3a3a3a;
+    }
+    
+    .card,
+    .stats-summary,
+    .chart-card,
+    .metrics-card,
+    .filter-section,
+    .report-table-container,
+    .report-summary,
+    .upload-section,
+    .settings-section,
+    .form-container {
+      background-color: #383838;
+    }
+    
+    .card-title,
+    .card-value,
+    h1, h2, h3, h4, h5, h6 {
+      color: #f7f7f7;
+    }
+    
+    .card-label,
+    .stat-label,
+    .metric-label {
+      color: #cccccc;
+    }
+    
+    /* Adjust color brightness for better contrast in dark mode */
+    .card-theme-a { border-top: 4px solid rgba(242, 201, 76, 0.9); }
+    .card-theme-i { 
+      background: linear-gradient(135deg, #383838 0%, #383838 97%, var(--primary-yellow) 97%, var(--primary-yellow) 100%);
+    }
+    
+    /* Form elements */
+    .form-control {
+      background-color: #454545;
+      border-color: #555555;
+      color: var(--text-light);
+    }
+    
+    /* Table adjustments */
+    .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner th {
+      background-color: var(--primary-green) !important;
+      color: white !important;
+    }
+    
+    .dash-table-container .dash-spreadsheet-container .dash-spreadsheet-inner td {
+      background-color: #454545 !important;
+      color: white !important;
+    }
+    
+    /* Dropdown adjustments */
+    .dash-dropdown .Select-control {
+      background-color: #383838;
+      border-color: #555555;
+    }
+    
+    .dash-dropdown .Select-value-label,
+    .dash-dropdown .Select-placeholder {
+      color: var(--text-light) !important;
+    }
+    
+    .dash-dropdown .Select-menu-outer {
+      background-color: #383838;
+      border-color: #555555;
+    }
+    
+    .dash-dropdown .Select-option {
+      background-color: #383838;
+      color: var(--text-light);
+    }
+    
+    .dash-dropdown .Select-option.is-selected {
+      background-color: var(--primary-green);
+    }
+    
+    .dash-dropdown .Select-option.is-focused {
+      background-color: #4a4a4a;
+    }
+    
+    /* Button adjustments */
+    .btn-outline {
+      border-color: var(--primary-yellow);
+      color: var(--primary-yellow);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary-yellow);
+      color: var(--background-dark);
+    }
+  }

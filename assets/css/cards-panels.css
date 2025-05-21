@@ -1,0 +1,451 @@
+/* 
+assets/css/cards-panels.css - Dashboard Card and Panel styles
+
+Contains styles for dashboard cards, panels, and grid layouts
+*/
+
+/* Dashboard Grid Layout */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+  
+  /* Card Styles - Compact squares */
+  .card {
+    background-color: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    overflow: hidden;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    position: relative;
+    height: 0;
+    padding-bottom: 60%; /* Reduced for compact square aspect ratio */
+    max-height: 200px; /* Maximum height to prevent oversized cards */
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    margin: 0;
+  }
+  
+  .card-icon {
+    font-size: 1rem;
+    color: var(--primary-yellow);
+  }
+  
+  .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 0;
+  }
+  
+  .card-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.125rem;
+    color: var(--primary-brown);
+  }
+  
+  .card-label {
+    font-size: 0.7rem;
+    color: var(--secondary-brown);
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+  }
+  
+  .card-change {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  
+  .card-change-positive {
+    color: var(--secondary-green);
+  }
+  
+  .card-change-negative {
+    color: var(--accent-red);
+  }
+  
+  .card-date {
+    color: var(--text-dark);
+    opacity: 0.6;
+  }
+  
+  /* Card Theme Variations */
+  .card-theme-a { border-top: 3px solid var(--primary-yellow); }
+  .card-theme-b { border-top: 3px solid var(--primary-brown); }
+  .card-theme-c { border-top: 3px solid var(--primary-green); }
+  .card-theme-d { border-top: 3px solid var(--accent-red); }
+  .card-theme-e { border-top: 3px solid var(--secondary-yellow); }
+  .card-theme-f { border-top: 3px solid var(--secondary-brown); }
+  .card-theme-g { border-top: 3px solid var(--secondary-green); }
+  .card-theme-h { border-top: 3px solid var(--light-red); }
+  .card-theme-i { 
+    background: linear-gradient(135deg, white 0%, white 97%, var(--primary-yellow) 97%, var(--primary-yellow) 100%);
+  }
+  
+  /* Stats Summary Panel */
+  .stats-summary {
+    padding: 1.25rem;
+    background-color: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    margin-bottom: 1.5rem;
+  }
+  
+  .stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .stats-filters {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+    margin-bottom: 0.25rem;
+  }
+  
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--secondary-brown);
+  }
+  
+  /* Chart container styles */
+  .chart-card {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .chart-card.wide {
+    grid-column: span 2;
+  }
+  
+  .analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .metrics-card {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem;
+  }
+  
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+  }
+  
+  .metric-label {
+    font-size: 0.75rem;
+    color: var(--secondary-brown);
+  }
+  
+  /* Report page panels */
+  .filter-section {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filter-item {
+    flex: 1;
+    min-width: 180px;
+  }
+  
+  .filter-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+  
+  .report-table-container {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+  
+  .report-summary {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1rem;
+  }
+  
+  .summary-item {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  /* Upload panel styles */
+  .upload-section {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 2rem;
+    margin-top: 1.5rem;
+  }
+  
+  .upload-container {
+    border: 2px dashed var(--border-light);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .upload-icon {
+    font-size: 3rem;
+    color: var(--secondary-green);
+    margin-bottom: 1rem;
+  }
+  
+  .upload-formats {
+    font-size: 0.8rem;
+    color: var(--secondary-brown);
+    margin-top: 1rem;
+  }
+  
+  /* Settings panel styles */
+  .settings-section {
+    background: white;
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--card-shadow);
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .settings-option {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .settings-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Responsive styles for cards and panels */
+  @media (max-width: 1024px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .analytics-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .chart-card.wide {
+      grid-column: span 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+    }
+    
+    .card {
+      padding-bottom: 60%; /* Keep square aspect ratio */
+      max-height: none; /* Remove max height constraint on mobile */
+    }
+    
+    .card-value {
+      font-size: 1.5rem; /* Keep values readable */
+    }
+    
+    .stats-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    
+    .report-summary {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, 1fr); /* Keep 2 cards per row */
+      gap: 0.5rem;
+    }
+    
+    .card-value {
+      font-size: 1.25rem;
+    }
+    
+    .card-title {
+      font-size: 0.8rem;
+    }
+    
+    .card-icon {
+      font-size: 0.9rem;
+    }
+    
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    /* More compact stats for small screens */
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .stat-value {
+      font-size: 1.35rem;
+    }
+  }
+  
+  /* TV Display Optimization (large screens) */
+  @media (min-width: 1800px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(5, 1fr); /* Show 5 cards per row on larger displays */
+      gap: 1rem;
+    }
+    
+    .card {
+      padding-bottom: 60%; /* Maintain square aspect ratio */
+      max-height: 220px; /* Slightly larger max height for TV displays */
+    }
+    
+    .card-value {
+      font-size: 1.75rem; /* Slightly larger values for readability */
+    }
+    
+    .card-title {
+      font-size: 0.95rem;
+    }
+  }
+  
+  /* Extra large TV displays (100-inch and above) */
+  @media (min-width: 2560px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(6, 1fr); /* Show 6 cards per row on very large displays */
+      gap: 1.25rem;
+      margin: 2rem 0;
+    }
+    
+    .card {
+      padding-bottom: 60%; /* Maintain square aspect ratio */
+      max-height: 240px; /* Even larger max height for massive displays */
+    }
+    
+    .card-value {
+      font-size: 2rem;
+    }
+    
+    .card-title {
+      font-size: 1rem;
+    }
+    
+    .card-icon {
+      font-size: 1.25rem;
+    }
+    
+    /* Improve readability of stats on very large displays */
+    .stats-summary {
+      padding: 1.5rem;
+    }
+    
+    .stat-value {
+      font-size: 2.25rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+    }
+  }

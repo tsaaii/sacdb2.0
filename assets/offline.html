@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F2C94C">
+    <title>Offline - Swaccha Andhra Dashboard</title>
+    <style>
+        :root {
+            --primary-yellow: #F2C94C;
+            --primary-green: #2D5E40;
+            --background-light: #FFFBF5;
+            --text-dark: #333333;
+            --text-light: #FEFEFE;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html, body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        
+        .offline-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .offline-logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+        
+        .offline-icon {
+            font-size: 4rem;
+            color: var(--primary-yellow);
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-green);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.25s, transform 0.25s;
+        }
+        
+        .btn:hover {
+            background-color: #3a7050;
+            transform: translateY(-2px);
+        }
+        
+        .offline-footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: rgba(51, 51, 51, 0.7);
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="offline-container">
+        <img src="/assets/img/logo.png" alt="Swaccha Andhra" class="offline-logo">
+        
+        <div class="offline-icon">
+            <i class="fas fa-wifi-slash"></i>
+        </div>
+        
+        <h1>You're offline</h1>
+        
+        <p>The Swaccha Andhra Dashboard is currently unavailable because you are not connected to the internet. Please check your connection and try again.</p>
+        
+        <button onclick="retryConnection()" class="btn">
+            <i class="fas fa-redo-alt" style="margin-right: 0.5rem;"></i>
+            Try Again
+        </button>
+        
+        <div class="offline-footer">
+            © 2025 Advitia Labs • Made in Andhra Pradesh
+        </div>
+    </div>
+
+    <script>
+        function retryConnection() {
+            window.location.reload();
+        }
+        
+        // Check connection status every 30 seconds
+        setInterval(function() {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>
