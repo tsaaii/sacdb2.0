@@ -1,18 +1,18 @@
 /* 
-assets/css/header-footer.css - Header and Footer styles
-
-Contains styles for the header and footer components
+Updated Header Styles with Reduced Size and Auto-Refresh Indicator
 */
 
 /* Header Styles */
 .header {
     background-color: var(--primary-green);
     color: var(--text-light);
-    padding: 0.75rem 0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    padding: 0.6rem 0; /* Reduced from 0.75rem to 0.6rem (3px reduction) */
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
     box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
   }
   
   .header-content {
@@ -28,13 +28,13 @@ Contains styles for the header and footer components
   }
   
   .header-title h1 {
-    font-size: 1.25rem;
+    font-size: 1.15rem; /* Slightly reduced */
     margin: 0;
     color: var(--text-light);
   }
   
   .header-logo {
-    height: 36px;
+    height: 33px; /* Reduced from 36px */
     width: auto;
   }
   
@@ -47,10 +47,11 @@ Contains styles for the header and footer components
   .header-nav-link {
     color: var(--text-light);
     text-decoration: none;
-    padding: 0.5rem 0;
+    padding: 0.4rem 0; /* Reduced from 0.5rem */
     transition: color var(--transition-speed);
     font-weight: 500;
     position: relative;
+    font-size: 0.9rem; /* Slightly reduced */
   }
   
   .header-nav-link:after {
@@ -83,136 +84,82 @@ Contains styles for the header and footer components
     font-size: 0.8rem;
     color: var(--text-light);
     opacity: 0.9;
-  }
-  
-  /* Footer Styles */
-  .footer {
-    background-color: var(--primary-green);
-    color: var(--text-light);
-    padding: 1.25rem 0;
-    margin-top: 2rem;
-  }
-  
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .footer-logo {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
   
-  .footer-logo img {
-    height: 28px;
-    width: auto;
-  }
-  
-  .footer-logo span {
-    font-weight: 600;
-    font-size: 1rem;
-  }
-  
-  .footer-links {
+  /* Auto-refresh indicator */
+  .auto-refresh-indicator {
     display: flex;
-    gap: 1.5rem;
-  }
-  
-  .footer-link {
-    color: var(--text-light);
-    text-decoration: none;
-    transition: color var(--transition-speed);
-  }
-  
-  .footer-link:hover {
-    color: var(--primary-yellow);
-  }
-  
-  .footer-copyright {
-    color: rgba(255, 255, 255, 0.7);
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 0.3rem 0.7rem;
+    border-radius: 50px;
     font-size: 0.75rem;
+    margin-right: 0.5rem;
   }
   
-  /* Responsive styles for header and footer */
+  .auto-refresh-indicator i {
+    margin-right: 0.35rem;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Login button */
+  .header .btn {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.85rem;
+  }
+  
+  /* Header hover area - invisible bar at top of screen that triggers header */
+  .header-hover-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 1000;
+  }
+  
+  /* Show header when hovering over either the header or the hover area */
+  .header:hover,
+  .header-hover-area:hover + .header,
+  .header.active {
+    transform: translateY(0);
+  }
+  
+  /* Add padding to main content to account for hover header */
+  main {
+    padding-top: 62px; /* Reduced to match header size reduction */
+  }
+  
+  /* Responsive styles for header */
   @media (max-width: 768px) {
     .header-content {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.75rem;
+      gap: 0.6rem; /* Reduced from 0.75rem */
     }
     
     .header-nav {
       width: 100%;
       overflow-x: auto;
-      padding-bottom: 0.5rem;
-      -webkit-overflow-scrolling: touch; /* Smoother scrolling on iOS */
-      scrollbar-width: thin; /* Thinner scrollbar for Firefox */
+      padding-bottom: 0.4rem; /* Reduced from 0.5rem */
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
     }
     
     .header-nav::-webkit-scrollbar {
-      height: 4px; /* Thin scrollbar for Chrome/Safari */
+      height: 3px; /* Reduced from 4px */
     }
     
-    .footer-content {
-      flex-direction: column;
-      gap: 1.25rem;
-      text-align: center;
-    }
-    
-    .footer-links {
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-  }
-  
-  /* TV Display Optimization (large screens) */
-  @media (min-width: 1800px) {
-    .header-logo {
-      height: 42px;
-    }
-    
-    .header-title h1 {
-      font-size: 1.5rem;
-    }
-    
-    .header-nav-link {
-      font-size: 1.1rem;
-    }
-    
-    .footer-logo img {
-      height: 36px;
-    }
-  }
-  
-  /* Extra large TV displays (100-inch and above) */
-  @media (min-width: 2560px) {
-    .header-logo {
-      height: 50px;
-    }
-    
-    .footer {
-      padding: 1.75rem 0;
-    }
-  }
-  
-  /* PWA Specific Styles for Header/Footer */
-  @media (display-mode: standalone) {
-    .header {
-      padding-top: env(safe-area-inset-top);
-      height: calc(56px + env(safe-area-inset-top));
-    }
-    
-    .footer {
-      padding-bottom: env(safe-area-inset-bottom);
-    }
-    
-    /* Improved touch targets for PWA */
-    .header-nav-link,
-    .footer-link {
-      min-height: 44px;
-      display: inline-flex;
-      align-items: center;
+    .auto-refresh-indicator {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
     }
   }

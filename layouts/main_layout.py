@@ -18,14 +18,15 @@ def create_main_layout():
         # URL Routing
         dcc.Location(id='url', refresh=False),
         
+        # Header hover trigger area
+        html.Div(className="header-hover-area"),
+        
         # Header Component
         html.Header(className="header", children=[
             html.Div(className="container", children=[
                 html.Div(className="header-content", children=[
                     # Logo & Title
                     html.Div(className="header-title", children=[
-                        html.Img(src="/assets/img/logo.png", alt="Swaccha Andhra", className="header-logo"),
-                        html.H1("Swaccha Andhra Dashboard")
                     ]),
                     
                     # Navigation
@@ -49,6 +50,42 @@ def create_main_layout():
             ])
         ]),
         
+        # Dashboard Title Banner with Logos
+        html.Div(className="dashboard-title-banner", children=[
+            html.Div(className="container", children=[
+                html.Div(className="dashboard-title-content", children=[
+                    # Left Logo
+                    html.Img(src="/assets/img/left.png", alt="Left Logo", className="dashboard-logo left-logo"),
+                    
+                    # Title Container
+                    html.Div(className="dashboard-title-container", children=[
+                        html.H1("Swaccha Andhra", className="dashboard-main-title"),
+                        html.H2("Waste Remediation Project", className="dashboard-subtitle"),
+                        html.H3("Real-time Monitoring Dashboard", className="dashboard-subheading"),
+                        
+                        # Status bar with auto-refresh and timestamp
+                        html.Div(className="dashboard-status-bar", children=[
+                            # Auto-refresh indicator
+                            html.Div(className="auto-refresh-indicator", children=[
+                                html.I(className="fas fa-sync-alt"),
+                                html.Span("Auto-refreshing")
+                            ]),
+                            
+                            # Update timestamp
+                            html.Div(id="dashboard-timestamp", className="dashboard-timestamp", children=[
+                                html.I(className="far fa-clock"),
+                                html.Span("Last updated: "),
+                                html.Span(id="update-time")
+                            ])
+                        ])
+                    ]),
+                    
+                    # Right Logo
+                    html.Img(src="/assets/img/right.png", alt="Right Logo", className="dashboard-logo right-logo")
+                ])
+            ])
+        ]),
+        
         # Main content
         html.Main(id='page-content'),
         
@@ -58,8 +95,7 @@ def create_main_layout():
                 html.Div(className="footer-content", children=[
                     # Logo
                     html.Div(className="footer-logo", children=[
-                        html.Img(src="/assets/img/logo-white.png", alt="Swaccha Andhra"),
-                        html.Span("Swaccha Andhra")
+                        html.Span("Swaccha Andhra Corporation")
                     ]),
                     
                     # Links
@@ -82,6 +118,13 @@ def create_main_layout():
         dcc.Interval(
             id='clock-interval',
             interval=1000,  # 1 second
+            n_intervals=0
+        ),
+        
+        # Data refresh interval
+        dcc.Interval(
+            id='refresh-interval',
+            interval=60000,  # 1 minute
             n_intervals=0
         )
     ])

@@ -1,19 +1,19 @@
 """
-callbacks/clock_callback.py - Clock display callback
+callbacks/timestamp_callback.py - Update time display callback
 
-This file defines the callback that updates the clock display.
+This file defines the callback that updates the timestamp display.
 """
 
 from dash import callback, Output, Input
 from datetime import datetime
 
 @callback(
-    Output('header-clock', 'children'),
-    [Input('clock-interval', 'n_intervals')]
+    Output('update-time', 'children'),
+    [Input('refresh-interval', 'n_intervals')]
 )
-def update_clock(n_intervals):
+def update_timestamp(n_intervals):
     """
-    Update the clock display with current time.
+    Update the timestamp display with current time.
     
     Args:
         n_intervals: Number of intervals elapsed

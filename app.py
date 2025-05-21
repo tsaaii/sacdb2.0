@@ -55,7 +55,7 @@ app = dash.Dash(
 # Set title
 app.title = "Swaccha Andhra Dashboard"
 
-# Add manifest.json link to index
+# Add manifest.json link to index, plus navigation control script
 app.index_string = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -67,6 +67,7 @@ app.index_string = '''
         <link rel="manifest" href="/assets/manifest.json">
         <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
         <script src="/assets/js/pwa-register.js" defer></script>
+        <script src="/assets/js/nav-control.js" defer></script>
     </head>
     <body>
         {%app_entry%}
@@ -81,6 +82,10 @@ app.index_string = '''
                 <i class="fas fa-download"></i> Install App
             </button>
         </div>
+        <!-- Mobile navigation toggle -->
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
     </body>
 </html>
 '''
