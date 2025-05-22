@@ -19,6 +19,7 @@ from layouts.main_layout import create_main_layout
 import callbacks.clock_callback
 import callbacks.navigation_callback
 import callbacks.routing_callback
+import callbacks.clock_callback  # Make sure this is imported
 
 # Create a Flask server
 server = flask.Flask(__name__)
@@ -55,13 +56,15 @@ app = dash.Dash(
 # Set title
 app.title = "Swaccha Andhra Dashboard"
 
-# Add manifest.json link to index, plus navigation control script
+# Add manifest.json link to index, navigation control script and live time update
+# Make sure Font Awesome is loaded first with a specific integrity hash
 app.index_string = '''
 <!DOCTYPE html>
 <html lang="en">
     <head>
         {%metas%}
         <title>{%title%}</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         {%favicon%}
         {%css%}
         <link rel="manifest" href="/assets/manifest.json">

@@ -1,16 +1,25 @@
 /* 
-Dashboard Status Bar Styles with Auto-refresh and Timestamp
+Dashboard Title with Stacked Status Indicators in Top-Right
+Including Date and Time Display
 */
 
 /* Dashboard Title Banner */
 .dashboard-title-banner {
     background: linear-gradient(to right, rgba(45, 94, 64, 0.1), rgba(242, 201, 76, 0.2), rgba(45, 94, 64, 0.1));
-    padding: 1.5rem 0 1rem 0;
+    padding: 1.5rem 0;
     margin-bottom: 2rem;
     border-bottom: 1px solid var(--border-light);
     border-top: 1px solid var(--border-light);
+    position: relative;
   }
   
+  /* Wrapper for title and status indicators */
+  .dashboard-title-wrapper {
+    position: relative;
+    padding-top: 1rem; /* Add space for the status indicators */
+  }
+  
+  /* Title Content - Logos and text */
   .dashboard-title-content {
     display: flex;
     align-items: center;
@@ -50,58 +59,84 @@ Dashboard Status Bar Styles with Auto-refresh and Timestamp
   .dashboard-subheading {
     font-size: 1.1rem;
     color: var(--secondary-brown);
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
     font-weight: 500;
   }
   
-  /* Dashboard Status Bar */
-  .dashboard-status-bar {
+  /* Status Indicators - Stacked in Top-Right */
+  .dashboard-status-indicators {
+    position: absolute;
+    top: -10px; /* Position slightly above the title */
+    right: 0;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+    z-index: 2;
+    /* background-color: rgba(255, 255, 255, 0.7); */
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-light);
+  }
+  
+  /* Refresh indicator */
+  .refresh-indicator {
+    display: flex;
     align-items: center;
-    gap: 1.5rem;
     font-size: 0.8rem;
-    margin-top: 0.75rem;
-    color: var(--secondary-brown);
   }
   
-  /* Auto-refresh indicator */
-  .auto-refresh-indicator {
-    display: flex;
-    align-items: center;
-    background-color: rgba(45, 94, 64, 0.1);
-    padding: 0.35rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
+  .refresh-text {
+    margin-left: 0.5rem;
     color: var(--primary-green);
+    font-weight: 500;
   }
   
-  .auto-refresh-indicator i {
-    margin-right: 0.35rem;
-    animation: spin 2s linear infinite;
+  /* Live time display */
+  .live-time {
+    text-align: right;
+    font-variant-numeric: tabular-nums; /* Keep numbers aligned when changing */
   }
   
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  .live-date {
+    font-size: 0.85rem;;
+    color: var(--secondary-brown);
+    margin-bottom: 0.15rem;
   }
   
-  /* Timestamp indicator */
-  .dashboard-timestamp {
-    display: flex;
-    align-items: center;
-    background-color: rgba(242, 201, 76, 0.1);
-    padding: 0.35rem 0.75rem;
-    border-radius: 50px;
-    font-size: 0.75rem;
+  .live-time-value {
+    font-size: 0.85rem;
+    font-weight: 600;
     color: var(--primary-brown);
   }
   
-  .dashboard-timestamp i {
-    margin-right: 0.35rem;
+  /* Responsive adjustments */
+  @media (max-width: 900px) {
+    .dashboard-status-indicators {
+      position: static;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .refresh-indicator {
+      margin-bottom: 0.25rem;
+    }
+    
+    .live-time {
+      text-align: center;
+    }
+    
+    .dashboard-title-wrapper {
+      padding-top: 0;
+    }
   }
   
-  /* Responsive adjustments for the title banner */
   @media (max-width: 768px) {
     .dashboard-title-content {
       flex-direction: column;
@@ -124,17 +159,12 @@ Dashboard Status Bar Styles with Auto-refresh and Timestamp
       font-size: 1rem;
     }
     
-    .dashboard-status-bar {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
     .left-logo, .right-logo {
       max-height: 50px;
     }
   }
   
-  /* On very small screens, keep logos smaller */
+  /* On very small screens, stack everything and center */
   @media (max-width: 480px) {
     .dashboard-logo {
       max-height: 40px;
@@ -150,6 +180,10 @@ Dashboard Status Bar Styles with Auto-refresh and Timestamp
     
     .dashboard-subheading {
       font-size: 0.9rem;
+    }
+    
+    .dashboard-status-indicators {
+      max-width: 180px;
     }
   }
   

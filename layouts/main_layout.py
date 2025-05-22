@@ -1,5 +1,5 @@
 """
-layouts/main_layout.py - Main layout structure
+layouts/main_layout.py - Main layout structure with stacked status indicators
 
 This file defines the common layout elements used across the application.
 """
@@ -14,6 +14,9 @@ def create_main_layout():
     Returns:
         dash component: The main layout structure with header, content area, and footer
     """
+    # Define color constants
+    DARK_GREEN = "#2D5E40"  # Primary green color
+    
     layout = html.Div([
         # URL Routing
         dcc.Location(id='url', refresh=False),
@@ -27,6 +30,7 @@ def create_main_layout():
                 html.Div(className="header-content", children=[
                     # Logo & Title
                     html.Div(className="header-title", children=[
+
                     ]),
                     
                     # Navigation
@@ -53,35 +57,34 @@ def create_main_layout():
         # Dashboard Title Banner with Logos
         html.Div(className="dashboard-title-banner", children=[
             html.Div(className="container", children=[
-                html.Div(className="dashboard-title-content", children=[
-                    # Left Logo
-                    html.Img(src="/assets/img/left.png", alt="Left Logo", className="dashboard-logo left-logo"),
-                    
-                    # Title Container
-                    html.Div(className="dashboard-title-container", children=[
-                        html.H1("Swaccha Andhra", className="dashboard-main-title"),
-                        html.H2("Waste Remediation Project", className="dashboard-subtitle"),
-                        html.H3("Real-time Monitoring Dashboard", className="dashboard-subheading"),
+                html.Div(className="dashboard-title-wrapper", children=[
+                    # Status indicators - stacked in top right
+                    html.Div(className="dashboard-status-indicators", children=[
+                        # Auto-refresh indicator
+                        html.Div(className="refresh-indicator", children=[
+                            html.I(id="refresh-indicator", className="fas fa-sync-alt fa-spin", 
+                                  style={"color": DARK_GREEN}),
+                            html.Span("Auto-refreshing", className="refresh-text")
+                        ]),
                         
-                        # Status bar with auto-refresh and timestamp
-                        html.Div(className="dashboard-status-bar", children=[
-                            # Auto-refresh indicator
-                            html.Div(className="auto-refresh-indicator", children=[
-                                html.I(className="fas fa-sync-alt"),
-                                html.Span("Auto-refreshing")
-                            ]),
-                            
-                            # Update timestamp
-                            html.Div(id="dashboard-timestamp", className="dashboard-timestamp", children=[
-                                html.I(className="far fa-clock"),
-                                html.Span("Last updated: "),
-                                html.Span(id="update-time")
-                            ])
-                        ])
+                        # Time display
+                        html.Div(id="live-time", className="live-time")
                     ]),
                     
-                    # Right Logo
-                    html.Img(src="/assets/img/right.png", alt="Right Logo", className="dashboard-logo right-logo")
+                    # Main title content with logos
+                    html.Div(className="dashboard-title-content", children=[
+                        # Left Logo
+                        html.Img(src="/assets/img/left.png", alt="Left Logo", className="dashboard-logo left-logo"),
+                        
+                        # Title Container
+                        html.Div(className="dashboard-title-container", children=[
+                            html.H1("Swaccha Andhra", className="dashboard-main-title"),
+                            html.H2("Real-Time Monitoring Dashboard for Legacy Waste Reclamation", className="dashboard-subtitle")
+                        ]),
+                        
+                        # Right Logo
+                        html.Img(src="/assets/img/right.png", alt="Right Logo", className="dashboard-logo right-logo")
+                    ])
                 ])
             ])
         ]),
@@ -95,7 +98,7 @@ def create_main_layout():
                 html.Div(className="footer-content", children=[
                     # Logo
                     html.Div(className="footer-logo", children=[
-                        html.Span("Swaccha Andhra Corporation")
+
                     ]),
                     
                     # Links

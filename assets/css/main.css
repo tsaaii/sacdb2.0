@@ -349,5 +349,68 @@ Contains base styles, variables, typography, and shared components
     margin-top: 1.5rem;
   }
 
+
+  @keyframes fa-spin {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  
+  .fa-spin {
+    -webkit-animation: fa-spin 2s infinite linear;
+    animation: fa-spin 2s infinite linear;
+  }
+  
+  /* If you want to make the spin animation more prominent */
+  .fa-sync-alt.fa-spin {
+    display: inline-block;
+    font-size: 1.1rem; /* Make icon slightly larger */
+    margin-right: 0.4rem; /* Add space between icon and text */
+  } 
+
   /* Add Font Awesome icon support */
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+
+@keyframes custom-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Apply the animation to the refresh indicator */
+  #refresh-indicator {
+    display: inline-block;
+    animation: custom-spin 2s infinite linear;
+    color: #2D5E40 !important; /* Important to override any other styles */
+    font-size: 1.1rem; /* Make it slightly larger */
+    margin-right: 0.4rem; /* Add space between icon and text */
+  }
+  
+  /* Style the refresh indicator container */
+  .refresh-indicator {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+  }
+  
+  .refresh-text {
+    margin-left: 0.3rem;
+    color: #2D5E40;
+    font-weight: 500;
+  }
+  
+  /* Make sure Font Awesome icons display correctly */
+  .fas {
+    display: inline-block; /* Ensure proper display */
+    line-height: 1; /* Better vertical alignment */
+  }
+
+
+
