@@ -1,0 +1,821 @@
+/* 
+Stats Summary Container Alignment - Replace previous stats summary CSS
+*/
+
+/* Align stats summary to match card grid width */
+.stats-summary-futuristic {
+    background: linear-gradient(135deg, rgba(232, 245, 233, 0.95) 0%, rgba(220, 237, 200, 0.9) 100%);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0 auto 1.25rem auto; /* Center align and add bottom margin */
+    border: 1px solid rgba(129, 199, 132, 0.3);
+    box-shadow: 
+      0 2px 12px rgba(76, 175, 80, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
+    
+    /* Match the dashboard grid width exactly */
+    width: 100%;
+    max-width: calc(100% - 0rem); /* Match container padding */
+    
+    /* Ensure it aligns with the card grid */
+    display: block;
+  }
+  
+  /* Container wrapper to ensure proper alignment */
+  .dashboard-content-wrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  /* Stats grid should match card proportions */
+  .stats-grid-futuristic {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 equal columns to fit nicely */
+    gap: 0.6rem;
+    width: 100%;
+  }
+  
+  /* Ensure stats summary never exceeds card grid width */
+  .stats-summary-futuristic,
+  .dashboard-grid {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Light background effect */
+  .stats-summary-futuristic::before {
+    content: '';
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(129, 199, 132, 0.1) 0%, transparent 60%);
+    animation: light-pulse 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes light-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.05); }
+  }
+  
+  /* Compact Header styling */
+  .stats-header-futuristic {
+    margin-bottom: 0.6rem;
+  }
+  
+  .stats-title-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .stats-title-icon {
+    color: #388E3C;
+    font-size: 1rem;
+    animation: gentle-rotate 4s linear infinite;
+  }
+  
+  @keyframes gentle-rotate {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(45deg) scale(1.05); }
+    50% { transform: rotate(90deg) scale(1); }
+    75% { transform: rotate(135deg) scale(1.05); }
+    100% { transform: rotate(180deg) scale(1); }
+  }
+  
+  .stats-title-futuristic {
+    color: #1B5E20;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-shadow: none;
+  }
+  
+  /* Compact Individual stat items */
+  .stat-item-futuristic {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(129, 199, 132, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .stat-item-futuristic:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(129, 199, 132, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(129, 199, 132, 0.2);
+  }
+  
+  /* Light animated border effect */
+  .stat-item-futuristic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(129, 199, 132, 0.6), transparent);
+    animation: light-scan-line 3s linear infinite;
+  }
+  
+  @keyframes light-scan-line {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  /* Compact Icon containers */
+  .stat-icon-container {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(129, 199, 132, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(129, 199, 132, 0.3);
+  }
+  
+  .stat-icon {
+    color: #388E3C;
+    font-size: 0.85rem;
+    animation: subtle-glow 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes subtle-glow {
+    from { text-shadow: 0 0 3px rgba(129, 199, 132, 0.3); }
+    to { text-shadow: 0 0 8px rgba(129, 199, 132, 0.5); }
+  }
+  
+  /* Compact Content area */
+  .stat-content {
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .stat-value-futuristic {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1B5E20;
+    margin-bottom: 0.1rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    text-shadow: none;
+  }
+  
+  .stat-label-futuristic {
+    font-size: 0.65rem;
+    color: #2E7D32;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 0.2rem;
+  }
+  
+  /* Compact Progress bar */
+  .stat-progress {
+    height: 2px;
+    background: rgba(129, 199, 132, 0.2);
+    border-radius: 1px;
+    overflow: hidden;
+    margin-top: 0.2rem;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #81C784, #66BB6A);
+    border-radius: 1px;
+    transition: width 0.5s ease;
+    animation: light-progress-glow 3s ease-in-out infinite alternate;
+  }
+  
+  @keyframes light-progress-glow {
+    from { box-shadow: 0 0 2px rgba(129, 199, 132, 0.3); }
+    to { box-shadow: 0 0 6px rgba(129, 199, 132, 0.6); }
+  }
+  
+  /* Compact Status indicators */
+  .stat-indicator {
+    font-size: 0.55rem;
+    font-weight: 600;
+    padding: 0.1rem 0.3rem;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top: 0.2rem;
+    display: inline-block;
+    animation: subtle-blink-status 3s ease-in-out infinite;
+  }
+  
+  .stat-indicator.success {
+    background: rgba(129, 199, 132, 0.2);
+    color: #2E7D32;
+    border: 1px solid rgba(129, 199, 132, 0.3);
+  }
+  
+  .stat-indicator.online {
+    background: rgba(144, 202, 249, 0.2);
+    color: #1565C0;
+    border: 1px solid rgba(144, 202, 249, 0.3);
+  }
+  
+  .stat-indicator.optimal {
+    background: rgba(255, 213, 79, 0.2);
+    color: #E65100;
+    border: 1px solid rgba(255, 213, 79, 0.3);
+  }
+  
+  @keyframes subtle-blink-status {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  
+  /* Responsive adjustments - maintain alignment */
+  @media (max-width: 768px) {
+    .stats-summary-futuristic {
+      padding: 0.6rem 0.8rem;
+      margin: 0 auto 0.8rem auto; /* Keep centered */
+    }
+    
+    .stats-grid-futuristic {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+      gap: 0.5rem;
+    }
+    
+    .stat-item-futuristic {
+      padding: 0.4rem 0.5rem;
+      gap: 0.4rem;
+    }
+    
+    .stat-icon-container {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .stat-icon {
+      font-size: 0.75rem;
+    }
+    
+    .stat-value-futuristic {
+      font-size: 1rem;
+    }
+    
+    .stats-title-futuristic {
+      font-size: 0.85rem;
+    }
+    
+    .stats-title-icon {
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stats-grid-futuristic {
+      grid-template-columns: 1fr; /* Single column on very small screens */
+      gap: 0.4rem;
+    }
+    
+    .stat-item-futuristic {
+      padding: 0.4rem;
+    }
+  }
+  
+  /* Large screen alignment */
+  @media (min-width: 1800px) {
+    .stats-summary-futuristic {
+      padding: 0.85rem 1.2rem;
+      max-width: 1200px; /* Match card grid max-width */
+    }
+    
+    .stats-grid-futuristic {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+    }
+    
+    .stat-value-futuristic {
+      font-size: 1.25rem;
+    }
+    
+    .stats-title-futuristic {
+      font-size: 1.05rem;
+    }
+    
+    .stat-icon-container {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .stat-icon {
+      font-size: 0.95rem;
+    }
+  }
+  
+  /* Extra large displays alignment */
+  @media (min-width: 2560px) {
+    .stats-summary-futuristic {
+      padding: 1rem 1.5rem;
+      max-width: 1400px; /* Match card grid max-width */
+    }
+    
+    .stat-value-futuristic {
+      font-size: 1.4rem;
+    }
+    
+    .stats-title-futuristic {
+      font-size: 1.2rem;
+    }
+    
+    .stat-icon-container {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .stat-icon {
+      font-size: 1rem;
+    }
+  }
+  /* Base futuristic card styling */
+.card-futuristic {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    border-radius: 12px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    height: 0;
+    padding-bottom: 60%;
+    max-height: 200px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Hover effects */
+  .card-futuristic:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 0 30px rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Background effects */
+  .card-bg-effect {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    animation: bg-pulse 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  @keyframes bg-pulse {
+    0%, 100% { opacity: 0.3; transform: rotate(0deg) scale(1); }
+    50% { opacity: 0.6; transform: rotate(180deg) scale(1.1); }
+  }
+  
+  /* Scan line effect */
+  .card-scan-line {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: scan-line-card 3s linear infinite;
+    z-index: 2;
+  }
+  
+  @keyframes scan-line-card {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  /* Card content */
+  .card-content-futuristic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 3;
+  }
+  
+  /* Header styling */
+  .card-header-futuristic {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+  }
+  
+  .card-title-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  
+  .card-title-futuristic {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+  }
+  
+  .card-id {
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    display: inline-block;
+    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  /* Icon container */
+  .card-icon-container {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+  }
+  
+  .card-icon-futuristic {
+    font-size: 0.9rem;
+    animation: icon-float 4s ease-in-out infinite;
+  }
+  
+  @keyframes icon-float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-2px) rotate(5deg); }
+    50% { transform: translateY(0px) rotate(0deg); }
+    75% { transform: translateY(-1px) rotate(-5deg); }
+  }
+  
+  /* Body styling */
+  .card-body-futuristic {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0.25rem 0;
+  }
+  
+  .card-value-container {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    margin-bottom: 0.3rem;
+  }
+  
+  .card-value-futuristic {
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-family: 'Consolas', 'Monaco', monospace;
+    line-height: 1;
+  }
+  
+  .card-unit {
+    font-size: 0.6rem;
+    font-weight: 600;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Status indicator */
+  .card-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: status-blink 2s ease-in-out infinite;
+  }
+  
+  @keyframes status-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  
+  .status-text {
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+  }
+  
+  /* Footer styling */
+  .card-footer-futuristic {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.65rem;
+  }
+  
+  .card-change-futuristic {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-weight: 600;
+  }
+  
+  .change-icon {
+    font-size: 0.5rem;
+    animation: change-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes change-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+  
+  .card-timestamp {
+    font-size: 0.55rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    opacity: 0.7;
+  }
+  
+  /* Color Theme Variations - Light Hues */
+  
+  /* Yellow Theme */
+  .card-theme-yellow {
+    background: linear-gradient(135deg, 
+      rgba(255, 251, 235, 0.95) 0%, 
+      rgba(254, 246, 216, 0.9) 100%);
+    border: 1px solid rgba(255, 193, 7, 0.2);
+  }
+  
+  .card-theme-yellow:hover {
+    box-shadow: 
+      0 20px 40px rgba(255, 193, 7, 0.2),
+      0 0 30px rgba(255, 235, 59, 0.4);
+  }
+  
+  .card-theme-yellow .card-title-futuristic,
+  .card-theme-yellow .card-value-futuristic {
+    color: #E65100;
+  }
+  
+  .card-theme-yellow .card-icon-futuristic {
+    color: #FF8F00;
+  }
+  
+  .card-theme-yellow .card-id {
+    background: rgba(255, 193, 7, 0.2);
+    color: #E65100;
+  }
+  
+  /* Green Theme */
+  .card-theme-green {
+    background: linear-gradient(135deg, 
+      rgba(232, 245, 233, 0.95) 0%, 
+      rgba(220, 237, 200, 0.9) 100%);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+  
+  .card-theme-green:hover {
+    box-shadow: 
+      0 20px 40px rgba(76, 175, 80, 0.2),
+      0 0 30px rgba(129, 199, 132, 0.4);
+  }
+  
+  .card-theme-green .card-title-futuristic,
+  .card-theme-green .card-value-futuristic {
+    color: #1B5E20;
+  }
+  
+  .card-theme-green .card-icon-futuristic {
+    color: #388E3C;
+  }
+  
+  .card-theme-green .card-id {
+    background: rgba(76, 175, 80, 0.2);
+    color: #1B5E20;
+  }
+  
+  /* Red Theme */
+  .card-theme-red {
+    background: linear-gradient(135deg, 
+      rgba(255, 235, 238, 0.95) 0%, 
+      rgba(255, 205, 210, 0.9) 100%);
+    border: 1px solid rgba(244, 67, 54, 0.2);
+  }
+  
+  .card-theme-red:hover {
+    box-shadow: 
+      0 20px 40px rgba(244, 67, 54, 0.2),
+      0 0 30px rgba(239, 154, 154, 0.4);
+  }
+  
+  .card-theme-red .card-title-futuristic,
+  .card-theme-red .card-value-futuristic {
+    color: #B71C1C;
+  }
+  
+  .card-theme-red .card-icon-futuristic {
+    color: #D32F2F;
+  }
+  
+  .card-theme-red .card-id {
+    background: rgba(244, 67, 54, 0.2);
+    color: #B71C1C;
+  }
+  
+  /* Glow Effects for Different Card Types */
+  .card-glow-amber:hover {
+    box-shadow: 
+      0 20px 40px rgba(255, 193, 7, 0.25),
+      0 0 40px rgba(255, 193, 7, 0.3);
+  }
+  
+  .card-glow-emerald:hover {
+    box-shadow: 
+      0 20px 40px rgba(76, 175, 80, 0.25),
+      0 0 40px rgba(76, 175, 80, 0.3);
+  }
+  
+  .card-glow-coral:hover {
+    box-shadow: 
+      0 20px 40px rgba(255, 87, 34, 0.25),
+      0 0 40px rgba(255, 87, 34, 0.3);
+  }
+  
+  .card-glow-gold:hover {
+    box-shadow: 
+      0 20px 40px rgba(255, 215, 0, 0.25),
+      0 0 40px rgba(255, 215, 0, 0.3);
+  }
+  
+  .card-glow-mint:hover {
+    box-shadow: 
+      0 20px 40px rgba(102, 187, 106, 0.25),
+      0 0 40px rgba(102, 187, 106, 0.3);
+  }
+  
+  .card-glow-rose:hover {
+    box-shadow: 
+      0 20px 40px rgba(233, 30, 99, 0.25),
+      0 0 40px rgba(233, 30, 99, 0.3);
+  }
+  
+  .card-glow-sunshine:hover {
+    box-shadow: 
+      0 20px 40px rgba(255, 235, 59, 0.25),
+      0 0 40px rgba(255, 235, 59, 0.3);
+  }
+  
+  .card-glow-forest:hover {
+    box-shadow: 
+      0 20px 40px rgba(67, 160, 71, 0.25),
+      0 0 40px rgba(67, 160, 71, 0.3);
+  }
+  
+  .card-glow-crimson:hover {
+    box-shadow: 
+      0 20px 40px rgba(220, 20, 60, 0.25),
+      0 0 40px rgba(220, 20, 60, 0.3);
+  }
+  
+  /* Responsive adjustments for futuristic cards */
+  @media (max-width: 768px) {
+    .card-futuristic {
+      padding-bottom: 60%;
+      max-height: none;
+    }
+    
+    .card-content-futuristic {
+      padding: 0.6rem;
+    }
+    
+    .card-value-futuristic {
+      font-size: 1.4rem;
+    }
+    
+    .card-title-futuristic {
+      font-size: 0.75rem;
+    }
+    
+    .card-icon-container {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .card-icon-futuristic {
+      font-size: 0.8rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .card-value-futuristic {
+      font-size: 1.2rem;
+    }
+    
+    .card-title-futuristic {
+      font-size: 0.7rem;
+    }
+    
+    .card-icon-container {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .card-icon-futuristic {
+      font-size: 0.7rem;
+    }
+  }
+  
+  /* TV Display Optimization */
+  @media (min-width: 1800px) {
+    .card-futuristic {
+      padding-bottom: 60%;
+      max-height: 220px;
+    }
+    
+    .card-content-futuristic {
+      padding: 1rem;
+    }
+    
+    .card-value-futuristic {
+      font-size: 1.8rem;
+    }
+    
+    .card-title-futuristic {
+      font-size: 0.9rem;
+    }
+    
+    .card-icon-container {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .card-icon-futuristic {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    .card-futuristic {
+      padding-bottom: 60%;
+      max-height: 240px;
+    }
+    
+    .card-content-futuristic {
+      padding: 1.2rem;
+    }
+    
+    .card-value-futuristic {
+      font-size: 2rem;
+    }
+    
+    .card-title-futuristic {
+      font-size: 1rem;
+    }
+    
+    .card-icon-container {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .card-icon-futuristic {
+      font-size: 1.2rem;
+    }
+  }

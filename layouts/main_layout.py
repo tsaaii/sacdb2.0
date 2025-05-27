@@ -1,7 +1,7 @@
 """
-layouts/main_layout.py - Main layout structure with stacked status indicators
+layouts/main_layout.py - Main layout structure with proper spacing
 
-This file defines the common layout elements used across the application.
+This file defines the common layout elements with fixed spacing issues.
 """
 
 from dash import html, dcc
@@ -9,7 +9,7 @@ import dash_bootstrap_components as dbc
 
 def create_main_layout():
     """
-    Create the main application layout structure.
+    Create the main application layout structure with proper spacing.
     
     Returns:
         dash component: The main layout structure with header, content area, and footer
@@ -17,7 +17,7 @@ def create_main_layout():
     # Define color constants
     DARK_GREEN = "#2D5E40"  # Primary green color
     
-    layout = html.Div([
+    layout = html.Div(className="main-app-container", children=[
         # URL Routing
         dcc.Location(id='url', refresh=False),
         
@@ -54,7 +54,7 @@ def create_main_layout():
             ])
         ]),
         
-        # Dashboard Title Banner with Logos
+        # Dashboard Title Banner with Logos - reduced spacing
         html.Div(className="dashboard-title-banner", children=[
             html.Div(className="container", children=[
                 html.Div(className="dashboard-title-wrapper", children=[
@@ -89,10 +89,12 @@ def create_main_layout():
             ])
         ]),
         
-        # Main content
-        html.Main(id='page-content'),
+        # Main content with proper flex structure
+        html.Main(className="dashboard-main-content", children=[
+            html.Div(id='page-content', className="page-content-wrapper")
+        ]),
         
-        # Footer component
+        # Footer component - will be pushed to bottom
         html.Footer(className="footer", children=[
             html.Div(className="container", children=[
                 html.Div(className="footer-content", children=[

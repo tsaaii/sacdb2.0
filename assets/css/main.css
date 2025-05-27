@@ -6,6 +6,7 @@
 @import 'css/pwa.css';
 @import 'css/dark-mode.css';
 @import 'css/dashboard-title.css';
+@import 'css/futuristic-stats.css';
 
 /* 
 assets/css/main.css - Main styles for Swaccha Andhra Dashboard
@@ -412,5 +413,250 @@ Contains base styles, variables, typography, and shared components
     line-height: 1; /* Better vertical alignment */
   }
 
+  /* 
+Layout Spacing Fixes - Add this to your CSS file
+*/
+
+/* Fix spacing between dashboard title and stats summary */
+.dashboard-title-banner {
+    background: linear-gradient(to right, rgba(45, 94, 64, 0.1), rgba(242, 201, 76, 0.2), rgba(45, 94, 64, 0.1));
+    padding: 1.5rem 0;
+    margin-bottom: 0.5rem; /* Reduced from 2rem to 0.5rem */
+    border-bottom: 1px solid var(--border-light);
+    border-top: 1px solid var(--border-light);
+    position: relative;
+  }
+  
+  /* Remove extra space after title banner */
+  .dashboard-title-banner + .container {
+    margin-top: 0; /* Remove the 1rem margin */
+  }
+  
+  /* Ensure full height layout structure */
+  html, body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--background-light);
+    color: var(--text-dark);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main layout wrapper to push footer down */
+  #root, 
+  .main-app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Main content area should expand to fill space */
+  main, 
+  #page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Container adjustments */
+  .container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    flex: 1; /* Allow container to expand */
+  }
+  
+  /* Stats summary spacing fix */
+  .stats-summary-futuristic {
+    background: linear-gradient(135deg, rgba(232, 245, 233, 0.95) 0%, rgba(220, 237, 200, 0.9) 100%);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem; /* Slightly increased for better separation from cards */
+    margin-top: 0; /* Remove any top margin */
+    border: 1px solid rgba(129, 199, 132, 0.3);
+    box-shadow: 
+      0 2px 12px rgba(76, 175, 80, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Dashboard Grid Layout - Ensure 3x3 format with better spacing */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
+    grid-template-rows: repeat(3, 1fr); /* Force 3 rows */
+    gap: 1rem; /* Increased gap for better spacing */
+    margin: 0 0 2rem 0; /* Remove top margin, add bottom margin */
+    max-width: 100%;
+    min-height: 600px; /* Ensure minimum height for proper spacing */
+  }
+  
+  /* Card sizing adjustments for 3x3 layout */
+  .card-futuristic {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    border-radius: 12px;
+    box-shadow: 
+      0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    height: 0;
+    padding-bottom: 65%; /* Slightly taller for better proportions */
+    max-height: 220px; /* Increased max height */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    aspect-ratio: 1; /* Ensure square cards */
+  }
+  
+  /* Footer positioning */
+  .footer {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 1.25rem 0;
+    margin-top: auto; /* Push footer to bottom */
+    flex-shrink: 0; /* Prevent footer from shrinking */
+  }
+  
+  /* Page content wrapper to ensure proper spacing */
+  .page-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 120px); /* Account for header and title banner */
+  }
+  
+  /* Content area adjustments */
+  .dashboard-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Responsive adjustments for 3x3 layout */
+  @media (max-width: 1024px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr); /* Keep 3 columns on tablets */
+      gap: 0.8rem;
+      min-height: 500px;
+    }
+    
+    .card-futuristic {
+      max-height: 180px;
+      padding-bottom: 60%;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr); /* Still keep 3 columns */
+      gap: 0.6rem;
+      min-height: 400px;
+    }
+    
+    .card-futuristic {
+      padding-bottom: 75%; /* Taller on mobile for readability */
+      max-height: none;
+    }
+    
+    .dashboard-title-banner {
+      padding: 1rem 0;
+      margin-bottom: 0.3rem;
+    }
+    
+    .stats-summary-futuristic {
+      margin-bottom: 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr); /* Force 3 columns even on small screens */
+      gap: 0.4rem;
+      min-height: 300px;
+    }
+    
+    .card-futuristic {
+      padding-bottom: 80%; /* Even taller on very small screens */
+    }
+    
+    .container {
+      padding: 0 0.5rem;
+    }
+  }
+  
+  /* Large screen optimizations - maintain 3x3 */
+  @media (min-width: 1800px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr); /* Keep 3x3 even on large screens */
+      gap: 1.5rem;
+      min-height: 700px;
+      max-width: 1200px; /* Limit max width to prevent cards from being too large */
+      margin: 0 auto 2rem auto; /* Center the grid */
+    }
+    
+    .card-futuristic {
+      padding-bottom: 60%;
+      max-height: 280px;
+    }
+    
+    .container {
+      max-width: 1800px;
+      padding: 0 2rem;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr); /* Still 3x3 on very large screens */
+      gap: 2rem;
+      min-height: 800px;
+      max-width: 1400px; /* Reasonable max width */
+      margin: 0 auto 2rem auto;
+    }
+    
+    .card-futuristic {
+      padding-bottom: 58%;
+      max-height: 320px;
+    }
+    
+    .container {
+      max-width: 2400px;
+      padding: 0 3rem;
+    }
+  }
+  
+  /* Ensure proper spacing in main layout */
+  main {
+    padding-top: 65px; /* Account for header */
+    min-height: calc(100vh - 65px);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Fix any extra margins on the main container */
+  .container:first-child {
+    margin-top: 0;
+  }
+  
+  /* Ensure dashboard content takes full available space */
+  .dashboard-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Remove any unwanted spacing from dashboard components */
+  .dashboard-grid + * {
+    margin-top: 0;
+  }
+  
+  .stats-summary-futuristic + .dashboard-grid {
+    margin-top: 0;
+  }
+
+  /* spacing changed end */
 
 
