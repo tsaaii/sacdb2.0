@@ -1,7 +1,7 @@
 """
-layouts/analytics_layout.py - Analytics page layout
+layouts/analytics_layout.py - Simplified analytics page layout
 
-This file defines the analytics page with charts and trend analysis.
+This file defines the analytics page with basic charts.
 """
 
 from dash import html, dcc
@@ -12,7 +12,7 @@ import numpy as np
 
 def create_analytics_layout():
     """
-    Create the analytics page layout with visualizations.
+    Create the analytics page layout with basic visualizations.
     
     Returns:
         dash component: The analytics page layout
@@ -45,10 +45,8 @@ def create_analytics_layout():
         xaxis_title='',
         yaxis_title='',
         title_font_size=16,
-        font_family='"Segoe UI", system-ui, -apple-system, sans-serif',
-        font_color='var(--text-dark)',
+        font_family='"Segoe UI", system-ui, -apple-system, sans-serif'
     )
-    waste_fig.update_traces(line_color='var(--primary-green)')
     
     # Create pie chart for waste composition
     waste_types_fig = px.pie(
@@ -62,8 +60,7 @@ def create_analytics_layout():
         paper_bgcolor='rgba(0,0,0,0)',
         margin=dict(l=20, r=20, t=40, b=20),
         title_font_size=16,
-        font_family='"Segoe UI", system-ui, -apple-system, sans-serif',
-        font_color='var(--text-dark)',
+        font_family='"Segoe UI", system-ui, -apple-system, sans-serif'
     )
     
     # Create bar chart for area performance
@@ -72,13 +69,13 @@ def create_analytics_layout():
         x=areas,
         y=targets,
         name='Target',
-        marker_color='var(--secondary-yellow)'
+        marker_color='#F2D06B'
     ))
     area_fig.add_trace(go.Bar(
         x=areas,
         y=actuals,
         name='Actual',
-        marker_color='var(--primary-green)'
+        marker_color='#2D5E40'
     ))
     area_fig.update_layout(
         barmode='group',
@@ -88,7 +85,6 @@ def create_analytics_layout():
         margin=dict(l=20, r=20, t=40, b=20),
         title_font_size=16,
         font_family='"Segoe UI", system-ui, -apple-system, sans-serif',
-        font_color='var(--text-dark)',
         legend=dict(
             orientation="h",
             yanchor="bottom",
@@ -107,92 +103,95 @@ def create_analytics_layout():
         ]),
         
         # Top row with filters
-        html.Div(className="filter-row", children=[
-            # Time period selector
-            html.Div(className="filter-item", children=[
-                html.Label("Time Period"),
-                dcc.Dropdown(
-                    id='analytics-time-period',
-                    options=[
-                        {'label': 'Last 30 Days', 'value': '30d'},
-                        {'label': 'Last 90 Days', 'value': '90d'},
-                        {'label': 'Year to Date', 'value': 'ytd'},
-                        {'label': 'Last 12 Months', 'value': '12m'}
-                    ],
-                    value='ytd',
-                    clearable=False,
-                    className="filter-dropdown"
-                )
-            ]),
-            
-            # Area selector
-            html.Div(className="filter-item", children=[
-                html.Label("Area"),
-                dcc.Dropdown(
-                    id='analytics-area',
-                    options=[
-                        {'label': 'All Areas', 'value': 'all'},
-                        {'label': 'North Guntur', 'value': 'north'},
-                        {'label': 'East Guntur', 'value': 'east'},
-                        {'label': 'South Guntur', 'value': 'south'},
-                        {'label': 'West Guntur', 'value': 'west'},
-                        {'label': 'Central Guntur', 'value': 'central'}
-                    ],
-                    value='all',
-                    clearable=False,
-                    className="filter-dropdown"
-                )
+        html.Div(className="content-section", children=[
+            html.H3("Filters"),
+            html.Div(style={"display": "flex", "gap": "1rem", "flexWrap": "wrap", "marginBottom": "1rem"}, children=[
+                # Time period selector
+                html.Div(style={"flex": "1", "minWidth": "180px"}, children=[
+                    html.Label("Time Period"),
+                    dcc.Dropdown(
+                        id='analytics-time-period',
+                        options=[
+                            {'label': 'Last 30 Days', 'value': '30d'},
+                            {'label': 'Last 90 Days', 'value': '90d'},
+                            {'label': 'Year to Date', 'value': 'ytd'},
+                            {'label': 'Last 12 Months', 'value': '12m'}
+                        ],
+                        value='ytd',
+                        clearable=False
+                    )
+                ]),
+                
+                # Area selector
+                html.Div(style={"flex": "1", "minWidth": "180px"}, children=[
+                    html.Label("Area"),
+                    dcc.Dropdown(
+                        id='analytics-area',
+                        options=[
+                            {'label': 'All Areas', 'value': 'all'},
+                            {'label': 'North Guntur', 'value': 'north'},
+                            {'label': 'East Guntur', 'value': 'east'},
+                            {'label': 'South Guntur', 'value': 'south'},
+                            {'label': 'West Guntur', 'value': 'west'},
+                            {'label': 'Central Guntur', 'value': 'central'}
+                        ],
+                        value='all',
+                        clearable=False
+                    )
+                ])
             ])
         ]),
         
         # Charts section
-        html.Div(className="analytics-grid", children=[
+        html.Div(className="content-section", children=[
+            html.H3("Charts"),
+            
             # Main trend chart
-            html.Div(className="chart-card wide", children=[
+            html.Div(style={"marginBottom": "2rem"}, children=[
                 dcc.Graph(
                     id='waste-trend-chart',
-                    figure=waste_fig,
-                    className="chart"
+                    figure=waste_fig
                 )
             ]),
             
-            # Waste type composition
-            html.Div(className="chart-card", children=[
-                dcc.Graph(
-                    id='waste-composition-chart',
-                    figure=waste_types_fig,
-                    className="chart"
-                )
+            # Row with two charts
+            html.Div(style={"display": "grid", "gridTemplateColumns": "repeat(auto-fit, minmax(400px, 1fr))", "gap": "1rem", "marginBottom": "2rem"}, children=[
+                # Waste type composition
+                html.Div(children=[
+                    dcc.Graph(
+                        id='waste-composition-chart',
+                        figure=waste_types_fig
+                    )
+                ]),
+                
+                # Area performance
+                html.Div(children=[
+                    dcc.Graph(
+                        id='area-performance-chart',
+                        figure=area_fig
+                    )
+                ])
             ]),
             
-            # Area performance
-            html.Div(className="chart-card", children=[
-                dcc.Graph(
-                    id='area-performance-chart',
-                    figure=area_fig,
-                    className="chart"
-                )
-            ]),
-            
-            # Key metrics card
-            html.Div(className="metrics-card", children=[
+            # Key metrics
+            html.Div(children=[
                 html.H3("Key Performance Metrics"),
-                html.Div(className="metrics-grid", children=[
-                    html.Div(className="metric-item", children=[
-                        html.Div(className="metric-value", children="268,450"),
-                        html.Div(className="metric-label", children="Total MT Collected")
+                html.Div(style={"display": "grid", "gridTemplateColumns": "repeat(auto-fit, minmax(200px, 1fr))", "gap": "1rem", "marginTop": "1rem"}, children=[
+                    html.Div(children=[
+                        html.Div("268,450", style={"fontSize": "1.5rem", "fontWeight": "700", "color": "#8B4513"}),
+                        html.Div("Total MT Collected", style={"fontSize": "0.75rem", "color": "#A67C52"})
                     ]),
-                    html.Div(className="metric-item", children=[
-                        html.Div(className="metric-value", children="12,450"),
-                        html.Div(className="metric-label", children="This Month (MT)")
+                    html.Div(children=[
+                        html.Div("12,450", style={"fontSize": "1.5rem", "fontWeight": "700", "color": "#8B4513"}),
+                        html.Div("This Month (MT)", style={"fontSize": "0.75rem", "color": "#A67C52"})
                     ]),
-                    html.Div(className="metric-item", children=[
-                        html.Div(className="metric-value", children="+15.3%"),
-                        html.Div(className="metric-label", children="YoY Growth")
+                    html.Div(children=[
+                        html.Div("+15.3%", style={"fontSize": "1.5rem", "fontWeight": "700", "color": "#8B4513"}),
+                        html.Div("YoY Growth", style={"fontSize": "0.75rem", "color": "#A67C52"})
                     ]),
-                    html.Div(className="metric-item", children=[
-                        html.Div(className="metric-value", children="94.7%"),
-                        html.Div(className="metric-label", children="Processing Efficiency")
+                    html.Div(children=[
+                        html.Div("94.7%", style={"fontSize": "1.5rem", "fontWeight": "700", "color": "#8B4513"}),
+                        html.Div("Processing Efficiency", style={"fontSize": "0.75rem", "color": "#A67C52"})
                     ])
                 ])
             ])

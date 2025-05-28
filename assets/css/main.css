@@ -1,44 +1,29 @@
-/* Import modular CSS files */
-@import 'css/main.css';
-@import 'css/header-footer.css';
-@import 'css/cards-panels.css';
-@import 'css/responsive.css';
-@import 'css/pwa.css';
-@import 'css/dark-mode.css';
-@import 'css/dashboard-title.css';
-@import 'css/futuristic-stats.css';
-
 /* 
-assets/css/main.css - Main styles for Swaccha Andhra Dashboard
+assets/css/main.css - Simplified Swaccha Andhra Dashboard Styles
 
-Contains base styles, variables, typography, and shared components
+Contains basic styles without panels or futuristic elements
 */
 
 /* Earth Tones Color Palette - Lighter version */
 :root {
     --primary-yellow: #F2C94C;      /* Warm yellow */
     --secondary-yellow: #F2D06B;    /* Light yellow */
-    --light-yellow: #FFEFC5;        /* Very light yellow for panels */
     --primary-brown: #8B4513;       /* SaddleBrown */
     --secondary-brown: #A67C52;     /* Lighter brown */
     --primary-green: #2D5E40;       /* Dark forest green */
     --secondary-green: #4A7E64;     /* Medium forest green */
-    --light-green: #E6F4EF;         /* Very light green for panels */
     --accent-red: #C74A3C;          /* Earthy red */
-    --light-red: #FFEEEC;           /* Very light red for panels */
+    --light-red: #E76F51;           /* Lighter red */
     
     /* Neutral Colors - Lighter theme */
     --background-light: #FFFBF5;    /* Very light cream background with yellow tint */
-    --background-dark: #2C2C2C;     /* Off black for dark mode */
     --text-dark: #333333;           /* Near black for text */
     --text-light: #FEFEFE;          /* Off white for text */
     --border-light: #E8E4D0;        /* Light border color with yellow tint */
     
     /* UI Elements */
-    --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);  /* Lighter shadow */
     --transition-speed: 0.25s;
     --border-radius: 8px;
-    --card-border-radius: 10px;
   }
   
   /* Base Styles */
@@ -55,6 +40,8 @@ Contains base styles, variables, typography, and shared components
     line-height: 1.5;
     min-height: 100vh;
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
   }
   
   /* Typography */
@@ -91,6 +78,29 @@ Contains base styles, variables, typography, and shared components
     padding: 0 1rem;
   }
   
+  /* Main layout wrapper */
+  .main-app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Main content area */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 65px; /* Account for header */
+    min-height: calc(100vh - 65px);
+  }
+  
+  /* Page content wrapper */
+  .page-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
   /* Button Styles */
   .btn {
     display: inline-flex;
@@ -123,15 +133,6 @@ Contains base styles, variables, typography, and shared components
     background-color: var(--secondary-green);
   }
   
-  .btn-accent {
-    background-color: var(--accent-red);
-    color: var(--text-light);
-  }
-  
-  .btn-accent:hover {
-    background-color: var(--light-red);
-  }
-  
   .btn-outline {
     background-color: transparent;
     color: var(--primary-green);
@@ -153,14 +154,20 @@ Contains base styles, variables, typography, and shared components
     margin-top: -0.5rem;
   }
   
+  /* Content sections */
+  .content-section {
+    margin: 2rem 0;
+    padding: 1rem 0;
+  }
+  
   /* Form styles */
   .form-container {
     background: white;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius);
     padding: 2rem;
     max-width: 500px;
     margin: 2rem auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
   .form-group {
@@ -200,198 +207,137 @@ Contains base styles, variables, typography, and shared components
     margin-top: 0;
   }
   
-  /* Dropdown Styles */
-  .Select-control {
+  /* Upload page styles */
+  .upload-section {
+    background: white;
     border-radius: var(--border-radius);
-    border: 1px solid var(--border-light);
+    padding: 2rem;
+    margin-top: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .time-period-selector {
-    min-width: 140px;
-  }
-  
-  /* Dash-specific adjustments */
-  .dash-dropdown .Select-control {
-    border-color: var(--border-light);
+  .upload-container {
+    border: 2px dashed var(--border-light);
     border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
   }
   
-  .dash-dropdown .Select-control:hover {
-    border-color: var(--primary-green);
-  }
-  
-  .dash-dropdown .Select-menu-outer {
-    border-radius: 0 0 var(--border-radius) var(--border-radius);
-    border-color: var(--primary-green);
-  }
-  
-  .dash-dropdown .Select-value-label {
-    color: var(--text-dark) !important;
-  }
-  
-  .dash-dropdown .is-focused:not(.is-open) > .Select-control {
-    border-color: var(--primary-green);
-    box-shadow: 0 0 0 1px var(--primary-green);
-  }
-  
-  /* Custom Animation Classes */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  .fade-in {
-    animation: fadeIn 0.3s forwards;
-  }
-  
-  /* ========== New Panel Styles ========== */
-  
-  /* Panel color variations */
-  .panel-yellow {
-    background-color: var(--light-yellow);
-    border-left: 4px solid var(--primary-yellow);
-  }
-  
-  .panel-green {
-    background-color: var(--light-green);
-    border-left: 4px solid var(--primary-green);
-  }
-  
-  .panel-red {
-    background-color: var(--light-red);
-    border-left: 4px solid var(--accent-red);
-  }
-  
-  /* Custom panel component */
-  .info-panel {
-    padding: 1rem;
+  .upload-icon {
+    font-size: 3rem;
+    color: var(--secondary-green);
     margin-bottom: 1rem;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--card-shadow);
   }
   
-  .info-panel-title {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  
-  .info-panel-body {
-    font-size: 0.9rem;
-  }
-  
-  /* ========== Hover Navigation Styles ========== */
-  
-  /* Header hover behavior */
-  .header {
-    transform: translateY(-100%);
-    transition: transform 0.3s ease;
-    position: fixed;
-    width: 100%;
-    z-index: 1001;
-  }
-  
-  /* Header hover area - invisible bar at top of screen that triggers header */
-  .header-hover-area {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    z-index: 1000;
-  }
-  
-  /* Show header when hovering over either the header or the hover area */
-  .header:hover,
-  .header-hover-area:hover + .header,
-  .header.active {
-    transform: translateY(0);
-  }
-  
-  /* Add padding to main content to account for hover header */
-  main {
-    padding-top: 65px;
-  }
-  
-  /* Mobile touch handling */
-  @media (max-width: 768px) {
-    .header {
-      transform: translateY(-100%);
-    }
-    
-    .header.active {
-      transform: translateY(0);
-    }
-    
-    /* Mobile nav toggle button */
-    .mobile-nav-toggle {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      z-index: 1002;
-      background-color: var(--primary-green);
-      color: var(--text-light);
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-  }
-  
-  /* Additional margin for components */
-  .mt-3 {
+  .upload-formats {
+    font-size: 0.8rem;
+    color: var(--secondary-brown);
     margin-top: 1rem;
   }
   
-  .mt-4 {
+  /* Settings page styles */
+  .settings-section {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
     margin-top: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
-
-
-  @keyframes fa-spin {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
+  
+  .settings-option {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .settings-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 0.75rem;
     }
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
+    
+    h1 {
+      font-size: 1.75rem;
+    }
+    
+    h2 {
+      font-size: 1.35rem;
+    }
+    
+    .btn {
+      min-height: 44px;
+      padding: 0.5rem 0.75rem;
     }
   }
   
-  .fa-spin {
-    -webkit-animation: fa-spin 2s infinite linear;
-    animation: fa-spin 2s infinite linear;
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 0.5rem;
+    }
+    
+    h1 {
+      font-size: 1.5rem;
+    }
+    
+    h2 {
+      font-size: 1.25rem;
+    }
+    
+    .page-header {
+      margin: 1rem 0;
+    }
   }
   
-  /* If you want to make the spin animation more prominent */
-  .fa-sync-alt.fa-spin {
-    display: inline-block;
-    font-size: 1.1rem; /* Make icon slightly larger */
-    margin-right: 0.4rem; /* Add space between icon and text */
-  } 
-
-  /* Add Font Awesome icon support */
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-
-@keyframes custom-spin {
+  /* Large screen optimizations */
+  @media (min-width: 1800px) {
+    html {
+      font-size: 16px;
+    }
+    
+    .container {
+      max-width: 1800px;
+      padding: 0 2rem;
+    }
+  }
+  
+  @media (min-width: 2560px) {
+    html {
+      font-size: 18px;
+    }
+    
+    .container {
+      max-width: 2400px;
+      padding: 0 3rem;
+    }
+  }
+  
+  /* Font Awesome icon support */
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
+  
+  /* Spinning animation for refresh indicator */
+  @keyframes custom-spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
   
-  /* Apply the animation to the refresh indicator */
+  .fa-spin {
+    animation: custom-spin 2s infinite linear;
+  }
+  
   #refresh-indicator {
     display: inline-block;
     animation: custom-spin 2s infinite linear;
-    color: #2D5E40 !important; /* Important to override any other styles */
-    font-size: 1.1rem; /* Make it slightly larger */
-    margin-right: 0.4rem; /* Add space between icon and text */
+    color: #2D5E40 !important;
+    font-size: 1.1rem;
+    margin-right: 0.4rem;
   }
   
-  /* Style the refresh indicator container */
   .refresh-indicator {
     display: flex;
     align-items: center;
@@ -407,256 +353,7 @@ Contains base styles, variables, typography, and shared components
     font-weight: 500;
   }
   
-  /* Make sure Font Awesome icons display correctly */
   .fas {
-    display: inline-block; /* Ensure proper display */
-    line-height: 1; /* Better vertical alignment */
+    display: inline-block;
+    line-height: 1;
   }
-
-  /* 
-Layout Spacing Fixes - Add this to your CSS file
-*/
-
-/* Fix spacing between dashboard title and stats summary */
-.dashboard-title-banner {
-    background: linear-gradient(to right, rgba(45, 94, 64, 0.1), rgba(242, 201, 76, 0.2), rgba(45, 94, 64, 0.1));
-    padding: 1.5rem 0;
-    margin-bottom: 0.5rem; /* Reduced from 2rem to 0.5rem */
-    border-bottom: 1px solid var(--border-light);
-    border-top: 1px solid var(--border-light);
-    position: relative;
-  }
-  
-  /* Remove extra space after title banner */
-  .dashboard-title-banner + .container {
-    margin-top: 0; /* Remove the 1rem margin */
-  }
-  
-  /* Ensure full height layout structure */
-  html, body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background-color: var(--background-light);
-    color: var(--text-dark);
-    line-height: 1.5;
-    min-height: 100vh;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Main layout wrapper to push footer down */
-  #root, 
-  .main-app-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Main content area should expand to fill space */
-  main, 
-  #page-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Container adjustments */
-  .container {
-    width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 1rem;
-    flex: 1; /* Allow container to expand */
-  }
-  
-  /* Stats summary spacing fix */
-  .stats-summary-futuristic {
-    background: linear-gradient(135deg, rgba(232, 245, 233, 0.95) 0%, rgba(220, 237, 200, 0.9) 100%);
-    border-radius: 8px;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1.25rem; /* Slightly increased for better separation from cards */
-    margin-top: 0; /* Remove any top margin */
-    border: 1px solid rgba(129, 199, 132, 0.3);
-    box-shadow: 
-      0 2px 12px rgba(76, 175, 80, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* Dashboard Grid Layout - Ensure 3x3 format with better spacing */
-  .dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
-    grid-template-rows: repeat(3, 1fr); /* Force 3 rows */
-    gap: 1rem; /* Increased gap for better spacing */
-    margin: 0 0 2rem 0; /* Remove top margin, add bottom margin */
-    max-width: 100%;
-    min-height: 600px; /* Ensure minimum height for proper spacing */
-  }
-  
-  /* Card sizing adjustments for 3x3 layout */
-  .card-futuristic {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
-    border-radius: 12px;
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.1),
-      inset 0 1px 0 rgba(255, 255, 255, 0.8);
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    position: relative;
-    height: 0;
-    padding-bottom: 65%; /* Slightly taller for better proportions */
-    max-height: 220px; /* Increased max height */
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    aspect-ratio: 1; /* Ensure square cards */
-  }
-  
-  /* Footer positioning */
-  .footer {
-    background-color: var(--primary-green);
-    color: var(--text-light);
-    padding: 1.25rem 0;
-    margin-top: auto; /* Push footer to bottom */
-    flex-shrink: 0; /* Prevent footer from shrinking */
-  }
-  
-  /* Page content wrapper to ensure proper spacing */
-  .page-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 120px); /* Account for header and title banner */
-  }
-  
-  /* Content area adjustments */
-  .dashboard-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Responsive adjustments for 3x3 layout */
-  @media (max-width: 1024px) {
-    .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr); /* Keep 3 columns on tablets */
-      gap: 0.8rem;
-      min-height: 500px;
-    }
-    
-    .card-futuristic {
-      max-height: 180px;
-      padding-bottom: 60%;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr); /* Still keep 3 columns */
-      gap: 0.6rem;
-      min-height: 400px;
-    }
-    
-    .card-futuristic {
-      padding-bottom: 75%; /* Taller on mobile for readability */
-      max-height: none;
-    }
-    
-    .dashboard-title-banner {
-      padding: 1rem 0;
-      margin-bottom: 0.3rem;
-    }
-    
-    .stats-summary-futuristic {
-      margin-bottom: 1rem;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr); /* Force 3 columns even on small screens */
-      gap: 0.4rem;
-      min-height: 300px;
-    }
-    
-    .card-futuristic {
-      padding-bottom: 80%; /* Even taller on very small screens */
-    }
-    
-    .container {
-      padding: 0 0.5rem;
-    }
-  }
-  
-  /* Large screen optimizations - maintain 3x3 */
-  @media (min-width: 1800px) {
-    .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr); /* Keep 3x3 even on large screens */
-      gap: 1.5rem;
-      min-height: 700px;
-      max-width: 1200px; /* Limit max width to prevent cards from being too large */
-      margin: 0 auto 2rem auto; /* Center the grid */
-    }
-    
-    .card-futuristic {
-      padding-bottom: 60%;
-      max-height: 280px;
-    }
-    
-    .container {
-      max-width: 1800px;
-      padding: 0 2rem;
-    }
-  }
-  
-  @media (min-width: 2560px) {
-    .dashboard-grid {
-      grid-template-columns: repeat(3, 1fr); /* Still 3x3 on very large screens */
-      gap: 2rem;
-      min-height: 800px;
-      max-width: 1400px; /* Reasonable max width */
-      margin: 0 auto 2rem auto;
-    }
-    
-    .card-futuristic {
-      padding-bottom: 58%;
-      max-height: 320px;
-    }
-    
-    .container {
-      max-width: 2400px;
-      padding: 0 3rem;
-    }
-  }
-  
-  /* Ensure proper spacing in main layout */
-  main {
-    padding-top: 65px; /* Account for header */
-    min-height: calc(100vh - 65px);
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Fix any extra margins on the main container */
-  .container:first-child {
-    margin-top: 0;
-  }
-  
-  /* Ensure dashboard content takes full available space */
-  .dashboard-main-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  /* Remove any unwanted spacing from dashboard components */
-  .dashboard-grid + * {
-    margin-top: 0;
-  }
-  
-  .stats-summary-futuristic + .dashboard-grid {
-    margin-top: 0;
-  }
-
-  /* spacing changed end */
-
-

@@ -1,9 +1,8 @@
 """
-app.py - Main application file for Swaccha Andhra Dashboard
+app.py - Minimal Swaccha Andhra Dashboard
 
-This file defines the Dash application with a light theme with minimal yellow tint.
-All route-specific layouts have been moved to separate files for better organization.
-Includes PWA configuration for installable web app functionality.
+This file defines the Dash application with basic functionality.
+Fixed import issues by using try-except blocks.
 """
 
 import dash
@@ -12,27 +11,8 @@ import dash_bootstrap_components as dbc
 import os
 import flask
 
-# Import layouts and callbacks
-from layouts.main_layout import create_main_layout
-
-# Register callbacks (must import to ensure they are registered)
-import callbacks.clock_callback
-import callbacks.navigation_callback
-import callbacks.routing_callback
-import callbacks.clock_callback  # Make sure this is imported
-
 # Create a Flask server
 server = flask.Flask(__name__)
-
-# Register service worker route
-@server.route('/service-worker.js')
-def service_worker():
-    return flask.send_from_directory('assets/js', 'service-worker.js')
-
-# Register offline page route
-@server.route('/offline.html')
-def offline():
-    return flask.send_from_directory('assets', 'offline.html')
 
 # Initialize the Dash app with Bootstrap
 app = dash.Dash(
@@ -43,21 +23,14 @@ app = dash.Dash(
     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no"},
         {"name": "theme-color", "content": "#F2C94C"},
-        {"name": "apple-mobile-web-app-capable", "content": "yes"},
-        {"name": "apple-mobile-web-app-status-bar-style", "content": "black-translucent"},
-        {"name": "description", "content": "Waste management monitoring dashboard for Andhra Pradesh state"},
-        {"name": "mobile-web-app-capable", "content": "yes"},
-        {"name": "msapplication-TileColor", "content": "#F2C94C"},
-        {"name": "msapplication-TileImage", "content": "/assets/icons/ms-icon-144x144.png"},
-        {"name": "msapplication-tap-highlight", "content": "no"}
+        {"name": "description", "content": "Waste management monitoring dashboard for Andhra Pradesh state"}
     ]
 )
 
 # Set title
 app.title = "Swaccha Andhra Dashboard"
 
-# Add manifest.json link to index, navigation control script and live time update
-# Make sure Font Awesome is loaded first with a specific integrity hash
+# Simple index string with Font Awesome
 app.index_string = '''
 <!DOCTYPE html>
 <html lang="en">
@@ -67,10 +40,6 @@ app.index_string = '''
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         {%favicon%}
         {%css%}
-        <link rel="manifest" href="/assets/manifest.json">
-        <link rel="apple-touch-icon" href="/assets/icons/icon-192x192.png">
-        <script src="/assets/js/pwa-register.js" defer></script>
-        <script src="/assets/js/nav-control.js" defer></script>
     </head>
     <body>
         {%app_entry%}
@@ -79,22 +48,51 @@ app.index_string = '''
             {%scripts%}
             {%renderer%}
         </footer>
-        <!-- Install app button for PWA -->
-        <div id="install-container" style="display:none;">
-            <button id="install-button" class="pwa-install-button">
-                <i class="fas fa-download"></i> Install App
-            </button>
-        </div>
         <!-- Mobile navigation toggle -->
-        <button id="mobile-nav-toggle" class="mobile-nav-toggle">
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle" style="display:none;">
             <i class="fas fa-bars"></i>
         </button>
     </body>
 </html>
 '''
 
-# Define the overall layout using the main layout
-app.layout = create_main_layout()
+# Import layouts and callbacks with error handling
+try:
+    from layouts.main_layout import create_main_layout
+    # Define the overall layout using the main layout
+    app.layout = create_main_layout()
+except ImportError as e:
+    print(f"Warning: Could not import main_layout: {e}")
+    # Fallback layout
+    app.layout = html.Div([
+        dcc.Location(id='url', refresh=False),
+        html.Div(id='page-content', children=[
+            html.Div(className="container", children=[
+                html.H1("Swaccha Andhra Dashboard"),
+                html.P("Welcome to the simplified dashboard."),
+                html.P("Some features may not be available due to missing layout files.")
+            ])
+        ])
+    ])
+
+# Register callbacks with error handling
+try:
+    import callbacks.clock_callback
+    print("Clock callback imported successfully")
+except ImportError as e:
+    print(f"Warning: Could not import clock_callback: {e}")
+
+try:
+    import callbacks.navigation_callback
+    print("Navigation callback imported successfully")
+except ImportError as e:
+    print(f"Warning: Could not import navigation_callback: {e}")
+
+try:
+    import callbacks.routing_callback
+    print("Routing callback imported successfully")
+except ImportError as e:
+    print(f"Warning: Could not import routing_callback: {e}")
 
 # Run the server
 if __name__ == '__main__':
@@ -104,6 +102,9 @@ if __name__ == '__main__':
     host = os.environ.get('HOST', '0.0.0.0')
     # Run in debug mode if not in production
     debug = os.environ.get('DASH_ENV') != 'production'
+    
+    print("Starting Swaccha Andhra Dashboard...")
+    print(f"Running on {host}:{port}")
     
     # Start the app
     app.run(debug=debug, port=port, host=host)

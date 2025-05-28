@@ -1,13 +1,12 @@
 /* 
-Dashboard Title with Stacked Status Indicators in Top-Right
-Including Date and Time Display
+assets/css/dashboard-title.css - Simplified Dashboard Title with Clock
 */
 
 /* Dashboard Title Banner */
 .dashboard-title-banner {
     background: linear-gradient(to right, rgba(45, 94, 64, 0.1), rgba(242, 201, 76, 0.2), rgba(45, 94, 64, 0.1));
     padding: 1.5rem 0;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     border-bottom: 1px solid var(--border-light);
     border-top: 1px solid var(--border-light);
     position: relative;
@@ -16,7 +15,7 @@ Including Date and Time Display
   /* Wrapper for title and status indicators */
   .dashboard-title-wrapper {
     position: relative;
-    padding-top: 1rem; /* Add space for the status indicators */
+    padding-top: 1rem;
   }
   
   /* Title Content - Logos and text */
@@ -56,56 +55,29 @@ Including Date and Time Display
     font-weight: 600;
   }
   
-  .dashboard-subheading {
-    font-size: 1.1rem;
-    color: var(--secondary-brown);
-    margin-bottom: 0;
-    font-weight: 500;
-  }
-  
   /* Status Indicators - Stacked in Top-Right */
   .dashboard-status-indicators {
     position: absolute;
-    top: -10px; /* Position slightly above the title */
+    top: -10px;
     right: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     gap: 0.5rem;
     z-index: 2;
-    /* background-color: rgba(255, 255, 255, 0.7); */
     padding: 0.5rem 0.75rem;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--border-light);
   }
   
-  /* Refresh indicator */
-  .refresh-indicator {
-    display: flex;
-    align-items: center;
-    font-size: 0.8rem;
-  }
-  
-  .refresh-text {
-    margin-left: 0.5rem;
-    color: var(--primary-green);
-    font-weight: 500;
-  }
-  
   /* Live time display */
   .live-time {
     text-align: right;
-    font-variant-numeric: tabular-nums; /* Keep numbers aligned when changing */
+    font-variant-numeric: tabular-nums;
   }
   
-  .live-date {
-    font-size: 0.85rem;;
-    color: var(--secondary-brown);
-    margin-bottom: 0.15rem;
-  }
-  
-  .live-time-value {
+  .live-update-text {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--primary-brown);
@@ -122,10 +94,6 @@ Including Date and Time Display
       max-width: 200px;
       margin-left: auto;
       margin-right: auto;
-    }
-    
-    .refresh-indicator {
-      margin-bottom: 0.25rem;
     }
     
     .live-time {
@@ -154,17 +122,8 @@ Including Date and Time Display
     .dashboard-subtitle {
       font-size: 1.2rem;
     }
-    
-    .dashboard-subheading {
-      font-size: 1rem;
-    }
-    
-    .left-logo, .right-logo {
-      max-height: 50px;
-    }
   }
   
-  /* On very small screens, stack everything and center */
   @media (max-width: 480px) {
     .dashboard-logo {
       max-height: 40px;
@@ -178,16 +137,7 @@ Including Date and Time Display
       font-size: 1rem;
     }
     
-    .dashboard-subheading {
-      font-size: 0.9rem;
-    }
-    
     .dashboard-status-indicators {
       max-width: 180px;
     }
-  }
-  
-  /* Extra space after the title banner for better separation */
-  .dashboard-title-banner + .container {
-    margin-top: 1rem;
   }

@@ -1,7 +1,7 @@
 """
-layouts/main_layout.py - Main layout structure with proper spacing
+layouts/main_layout.py - Complete main layout structure with logos and footer
 
-This file defines the common layout elements with fixed spacing issues.
+This file defines the common layout elements with logos and complete footer.
 """
 
 from dash import html, dcc
@@ -9,7 +9,7 @@ import dash_bootstrap_components as dbc
 
 def create_main_layout():
     """
-    Create the main application layout structure with proper spacing.
+    Create the main application layout structure with logos and footer.
     
     Returns:
         dash component: The main layout structure with header, content area, and footer
@@ -30,7 +30,8 @@ def create_main_layout():
                 html.Div(className="header-content", children=[
                     # Logo & Title
                     html.Div(className="header-title", children=[
-
+                        html.Img(src="/assets/img/logo.png", alt="Swaccha Andhra", className="header-logo"),
+                        html.H1("Swaccha Andhra Dashboard")
                     ]),
                     
                     # Navigation
@@ -54,11 +55,11 @@ def create_main_layout():
             ])
         ]),
         
-        # Dashboard Title Banner with Logos - reduced spacing
+        # Dashboard Title Banner with Logos and Clock
         html.Div(className="dashboard-title-banner", children=[
             html.Div(className="container", children=[
                 html.Div(className="dashboard-title-wrapper", children=[
-                    # Status indicators - stacked in top right
+                    # Status indicators - clock in top right
                     html.Div(className="dashboard-status-indicators", children=[
                         # Auto-refresh indicator
                         html.Div(className="refresh-indicator", children=[
@@ -94,16 +95,17 @@ def create_main_layout():
             html.Div(id='page-content', className="page-content-wrapper")
         ]),
         
-        # Footer component - will be pushed to bottom
+        # Complete Footer component
         html.Footer(className="footer", children=[
             html.Div(className="container", children=[
                 html.Div(className="footer-content", children=[
-                    # Logo
+                    # Footer Logo and Brand
                     html.Div(className="footer-logo", children=[
-
+                        html.Img(src="/assets/img/logo-white.png", alt="Swaccha Andhra", style={"height": "28px", "width": "auto"}),
+                        html.Span("Swaccha Andhra", style={"fontWeight": "600", "fontSize": "1rem", "marginLeft": "0.5rem"})
                     ]),
                     
-                    # Links
+                    # Footer Links
                     html.Div(className="footer-links", children=[
                         html.A("About", href="/about", className="footer-link"),
                         html.A("Help", href="/help", className="footer-link"),

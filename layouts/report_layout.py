@@ -1,146 +1,81 @@
 """
-layouts/report_layout.py - Reports page layout
+app.py - Simplified Swaccha Andhra Dashboard
 
-This file defines the reports page layout.
+This file defines the Dash application with basic functionality.
+All panels and complex styling have been removed.
 """
 
-from dash import html, dcc, dash_table
+import dash
+from dash import html, dcc
 import dash_bootstrap_components as dbc
-import pandas as pd
+import os
+import flask
 
-def create_reports_layout():
-    """
-    Create the reports page layout with filters and tables.
+# Import layouts and callbacks
+from layouts.main_layout import create_main_layout
+
+# Register callbacks (must import to ensure they are registered)
+import callbacks.clock_callback
+import callbacks.navigation_callback
+import callbacks.routing_callback
+
+# Create a Flask server
+server = flask.Flask(__name__)
+
+# Initialize the Dash app with Bootstrap
+app = dash.Dash(
+    __name__, 
+    server=server,
+    external_stylesheets=[dbc.themes.BOOTSTRAP],
+    suppress_callback_exceptions=True,
+    meta_tags=[
+        {"name": "viewport", "content": "width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no"},
+        {"name": "theme-color", "content": "#F2C94C"},
+        {"name": "description", "content": "Waste management monitoring dashboard for Andhra Pradesh state"}
+    ]
+)
+
+# Set title
+app.title = "Swaccha Andhra Dashboard"
+
+# Simple index string with Font Awesome
+app.index_string = '''
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {%metas%}
+        <title>{%title%}</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        {%favicon%}
+        {%css%}
+        <script src="/assets/js/nav-control.js" defer></script>
+    </head>
+    <body>
+        {%app_entry%}
+        <footer>
+            {%config%}
+            {%scripts%}
+            {%renderer%}
+        </footer>
+        <!-- Mobile navigation toggle -->
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </body>
+</html>
+'''
+
+# Define the overall layout using the main layout
+app.layout = create_main_layout()
+
+# Run the server
+if __name__ == '__main__':
+    # Get port from environment variable (for cloud deployment)
+    port = int(os.environ.get('PORT', 8080))
+    # Get host from environment
+    host = os.environ.get('HOST', '0.0.0.0')
+    # Run in debug mode if not in production
+    debug = os.environ.get('DASH_ENV') != 'production'
     
-    Returns:
-        dash component: The reports page layout
-    """
-    # Example data for reports
-    sample_data = {
-        'Date': ['2025-05-15', '2025-05-16', '2025-05-17', '2025-05-18', '2025-05-19', '2025-05-20'],
-        'Waste Collected (MT)': [245, 280, 210, 310, 260, 290],
-        'Area': ['North Guntur', 'East Guntur', 'South Guntur', 'West Guntur', 'Central Guntur', 'North Guntur'],
-        'Vendor': ['Vendor A', 'Vendor B', 'Vendor C', 'Vendor B', 'Vendor A', 'Vendor C'],
-        'Completion (%)': [94, 87, 91, 89, 95, 92]
-    }
-    
-    # Create example dataframe
-    df = pd.DataFrame(sample_data)
-    
-    # Layout for reports page
-    layout = html.Div(className="container", children=[
-        # Page title
-        html.Div(className="page-header", children=[
-            html.H2("Reports"),
-            html.P("View, filter and export waste collection reports.")
-        ]),
-        
-        # Filters section
-        html.Div(className="filter-section", children=[
-            html.Div(className="filter-row", children=[
-                # Date range filter
-                html.Div(className="filter-item", children=[
-                    html.Label("Date Range"),
-                    dcc.DatePickerRange(
-                        id='date-range',
-                        start_date_placeholder_text="Start Date",
-                        end_date_placeholder_text="End Date",
-                        calendar_orientation='horizontal',
-                        className="date-picker"
-                    )
-                ]),
-                
-                # Area filter
-                html.Div(className="filter-item", children=[
-                    html.Label("Area"),
-                    dcc.Dropdown(
-                        id='area-filter',
-                        options=[
-                            {'label': 'All Areas', 'value': 'all'},
-                            {'label': 'North Guntur', 'value': 'north'},
-                            {'label': 'East Guntur', 'value': 'east'},
-                            {'label': 'South Guntur', 'value': 'south'},
-                            {'label': 'West Guntur', 'value': 'west'},
-                            {'label': 'Central Guntur', 'value': 'central'}
-                        ],
-                        value='all',
-                        clearable=False,
-                        className="filter-dropdown"
-                    )
-                ]),
-                
-                # Vendor filter
-                html.Div(className="filter-item", children=[
-                    html.Label("Vendor"),
-                    dcc.Dropdown(
-                        id='vendor-filter',
-                        options=[
-                            {'label': 'All Vendors', 'value': 'all'},
-                            {'label': 'Vendor A', 'value': 'a'},
-                            {'label': 'Vendor B', 'value': 'b'},
-                            {'label': 'Vendor C', 'value': 'c'},
-                            {'label': 'Vendor D', 'value': 'd'}
-                        ],
-                        value='all',
-                        clearable=False,
-                        className="filter-dropdown"
-                    )
-                ])
-            ]),
-            
-            # Action buttons
-            html.Div(className="filter-actions", children=[
-                html.Button("Apply Filters", id="apply-filters", className="btn btn-primary"),
-                html.Button("Reset", id="reset-filters", className="btn btn-outline"),
-                html.Button("Export CSV", id="export-csv", className="btn")
-            ])
-        ]),
-        
-        # Reports data table
-        html.Div(className="report-table-container", children=[
-            dash_table.DataTable(
-                id='reports-table',
-                columns=[{"name": i, "id": i} for i in df.columns],
-                data=df.to_dict('records'),
-                page_size=10,
-                style_table={'overflowX': 'auto'},
-                style_cell={
-                    'textAlign': 'left',
-                    'padding': '12px',
-                    'fontFamily': '"Segoe UI", system-ui, -apple-system, sans-serif'
-                },
-                style_header={
-                    'backgroundColor': 'var(--primary-green)',
-                    'color': 'white',
-                    'fontWeight': 'bold',
-                    'textAlign': 'left'
-                },
-                style_data_conditional=[
-                    {
-                        'if': {'row_index': 'odd'},
-                        'backgroundColor': 'var(--background-light)'
-                    }
-                ],
-                sort_action='native',
-                filter_action='native'
-            )
-        ]),
-        
-        # Summary metrics
-        html.Div(className="report-summary", children=[
-            html.Div(className="summary-item", children=[
-                html.Span("Total Records:"),
-                html.Strong("6")
-            ]),
-            html.Div(className="summary-item", children=[
-                html.Span("Average Collection:"),
-                html.Strong("265.8 MT")
-            ]),
-            html.Div(className="summary-item", children=[
-                html.Span("Average Completion:"),
-                html.Strong("91.3%")
-            ])
-        ])
-    ])
-    
-    return layout
+    # Start the app
+    app.run(debug=debug, port=port, host=host)
