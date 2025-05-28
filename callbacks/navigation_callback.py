@@ -7,28 +7,33 @@ This file defines callbacks for conditional navigation based on authentication s
 from dash import callback, Output, Input, State, html, no_update
 from dash.exceptions import PreventUpdate
 
-# Callback to handle conditional navigation based on current page
+# Callback to handle conditional navigation based on current page and session
 @callback(
     [Output('nav-links', 'children'),
      Output('header-actions', 'children')],
-    [Input('url', 'pathname')]
+    [Input('url', 'pathname'),
+     Input('user-session', 'data')]
 )
-def update_conditional_navigation(pathname):
+def update_conditional_navigation(pathname, session_data):
     """
     Update navigation and header actions based on current page and authentication status.
     
     Args:
         pathname: Current URL pathname
+        session_data: User session data
         
     Returns:
         tuple: (navigation_links, header_actions)
     """
-    # Check if user is on public pages (no authentication required)
-    public_pages = ['/']
-    is_public_page = pathname in public_pages
+    # Check if user is authenticated
+    is_authenticated = session_data and session_data.get('authenticated', False)
     
-    if is_public_page:
-        # Public page - show only login option
+    # Public routes that don't require authentication
+    public_routes = ['/', '/login']
+    is_public_page = pathname in public_routes
+    
+    if not is_authenticated or is_public_page:
+        # Public page or unauthenticated - show only login option
         nav_links = []  # No navigation links on public page
         
         header_actions = [
@@ -65,6 +70,9 @@ def update_conditional_navigation(pathname):
         header_actions = [
             # Clock display
             html.Div(id="header-clock", className="clock-display"),
+            # Show username if available
+            html.Span(f"Welcome, {session_data.get('username', 'User')}", 
+                     style={"color": "#FEFEFE", "marginRight": "1rem", "fontSize": "0.9rem"}),
             # Logout button for authenticated users
             html.Button("Logout", id="logout-btn", className="btn btn-accent", n_clicks=0)
         ]

@@ -1,5 +1,5 @@
 """
-layouts/login_layout.py - Login page layout with authentication
+layouts/login_layout.py - Updated login page layout without duplicate session store
 
 This file defines the login page layout with logo and auth integration.
 """
@@ -99,23 +99,10 @@ def create_login_layout():
         html.Footer(className="login-page-footer", children=[
             html.P("© 2025 Advitia Labs • Made in Andhra Pradesh", 
                    className="footer-text")
-        ]),
+        ])
         
-        # Hidden div to store login status
-        html.Div(id="login-status", style={"display": "none"}),
-        
-        # Store for user session
-        dcc.Store(id="user-session", storage_type="session"),
-        
-        # Store for login success trigger
-        dcc.Store(id="login-success-trigger"),
-        
-        # Redirect components
-        dcc.Location(id="login-redirect", refresh=True),
-        dcc.Location(id="auth-redirect", refresh=True),
-        
-        # Dummy div for clientside callback
-        html.Div(id="login-redirect-dummy", style={"display": "none"})
+        # Note: user-session store is now in main_layout.py globally
+        # No duplicate stores needed here
     ], style={
         "backgroundColor": "#FFFBF5",
         "minHeight": "100vh",

@@ -94,6 +94,13 @@ try:
 except ImportError as e:
     print(f"Warning: Could not import routing_callback: {e}")
 
+# THIS IS THE KEY ADDITION - Import auth callback
+try:
+    import callbacks.auth_callback
+    print("Auth callback imported successfully")
+except ImportError as e:
+    print(f"Warning: Could not import auth_callback: {e}")
+
 # Run the server
 if __name__ == '__main__':
     # Get port from environment variable (for cloud deployment)

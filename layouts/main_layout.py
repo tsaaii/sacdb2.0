@@ -1,7 +1,7 @@
 """
-layouts/main_layout.py - Updated main layout with conditional header
+layouts/main_layout.py - Updated main layout with global session management
 
-This file defines the main layout with different headers for public vs authenticated users.
+This file defines the main layout with session store available globally.
 """
 
 from dash import html, dcc
@@ -9,17 +9,19 @@ import dash_bootstrap_components as dbc
 
 def create_main_layout():
     """
-    Create the main application layout with conditional header.
+    Create the main application layout with global session management.
     
     Returns:
-        dash component: The main layout structure with conditional navigation
+        dash component: The main layout structure with global session
     """
     # Define color constants
     DARK_GREEN = "#2D5E40"  # Primary green color
     
     layout = html.Div(className="main-app-container", children=[
-        # URL Routing
+        # Global components that need to be available everywhere
         dcc.Location(id='url', refresh=False),
+        dcc.Store(id="user-session", storage_type="session", data={}),
+        dcc.Store(id="current-user-info", storage_type="memory"),
         
         # Header hover trigger area
         html.Div(className="header-hover-area"),
@@ -115,9 +117,7 @@ def create_main_layout():
             n_intervals=0
         ),
         
-        # Session management components
-        dcc.Store(id="user-session", storage_type="session"),
-        dcc.Store(id="current-user-info", storage_type="memory"),
+        # Access check div for callbacks
         html.Div(id="page-access-check", children=[])
     ])
     
