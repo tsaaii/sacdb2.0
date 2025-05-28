@@ -18,7 +18,6 @@ def create_header():
             html.Div(className="header-content", children=[
                 # Logo & Title
                 html.Div(className="header-title", children=[
-                    html.Img(src="/assets/img/logo.png", alt="Swaccha Andhra", className="header-logo"),
                     html.H1("Swaccha Andhra Dashboard")
                 ]),
                 

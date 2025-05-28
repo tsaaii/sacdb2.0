@@ -33,11 +33,6 @@ assets/css/header-footer.css - Simplified Header and Footer Styles
     color: var(--text-light);
   }
   
-  .header-logo {
-    height: 33px;
-    width: auto;
-  }
-  
   .header-nav {
     display: flex;
     gap: 1.25rem;

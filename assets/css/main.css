@@ -1,359 +1,203 @@
 /* 
-assets/css/main.css - Simplified Swaccha Andhra Dashboard Styles
-
-Contains basic styles without panels or futuristic elements
+Fixed Layout CSS - Ensures header, content, and footer are all visible without scrolling
+Replace the main layout styles in your assets/css/main.css with these:
 */
 
-/* Earth Tones Color Palette - Lighter version */
-:root {
-    --primary-yellow: #F2C94C;      /* Warm yellow */
-    --secondary-yellow: #F2D06B;    /* Light yellow */
-    --primary-brown: #8B4513;       /* SaddleBrown */
-    --secondary-brown: #A67C52;     /* Lighter brown */
-    --primary-green: #2D5E40;       /* Dark forest green */
-    --secondary-green: #4A7E64;     /* Medium forest green */
-    --accent-red: #C74A3C;          /* Earthy red */
-    --light-red: #E76F51;           /* Lighter red */
-    
-    /* Neutral Colors - Lighter theme */
-    --background-light: #FFFBF5;    /* Very light cream background with yellow tint */
-    --text-dark: #333333;           /* Near black for text */
-    --text-light: #FEFEFE;          /* Off white for text */
-    --border-light: #E8E4D0;        /* Light border color with yellow tint */
-    
-    /* UI Elements */
-    --transition-speed: 0.25s;
-    --border-radius: 8px;
-  }
-  
-  /* Base Styles */
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html, body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background-color: var(--background-light);
-    color: var(--text-dark);
-    line-height: 1.5;
+/* Main layout wrapper - use flexbox for proper distribution */
+.main-app-container {
     min-height: 100vh;
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
+    display: flex;
+    flex-direction: column;
   }
   
-  /* Typography */
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 1rem;
-    color: var(--primary-green);
-  }
-  
-  h1 {
-    font-size: 2rem;
-    letter-spacing: -0.3px;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    letter-spacing: -0.2px;
-  }
-  
-  h3 {
-    font-size: 1.25rem;
-  }
-  
-  p {
-    margin-bottom: 1rem;
-  }
-  
-  /* Layout Components */
-  .container {
+  /* Header - fixed height */
+  .header {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 0.6rem 0;
+    position: fixed;
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    z-index: 1001;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    height: 60px; /* Fixed header height */
   }
   
-  /* Main layout wrapper */
-  .main-app-container {
-    min-height: 100vh;
+  /* Dashboard title banner - fixed height */
+  .dashboard-title-banner {
+    background: linear-gradient(to right, rgba(45, 94, 64, 0.1), rgba(242, 201, 76, 0.2), rgba(45, 94, 64, 0.1));
+    padding: 1rem 0; /* Reduced padding */
+    border-bottom: 1px solid var(--border-light);
+    border-top: 1px solid var(--border-light);
+    position: relative;
+    flex-shrink: 0; /* Don't allow shrinking */
+    height: 120px; /* Fixed banner height */
     display: flex;
-    flex-direction: column;
-  }
-  
-  /* Main content area */
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding-top: 65px; /* Account for header */
-    min-height: calc(100vh - 65px);
-  }
-  
-  /* Page content wrapper */
-  .page-content-wrapper {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  
-  /* Button Styles */
-  .btn {
-    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 0.5rem 1rem;
-    background-color: var(--primary-yellow);
-    color: var(--text-dark);
-    border: none;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color var(--transition-speed), transform var(--transition-speed);
-    text-decoration: none;
-    gap: 0.5rem;
-    font-size: 0.9rem;
   }
   
-  .btn:hover {
-    background-color: var(--secondary-yellow);
-    transform: translateY(-2px);
+  /* Main content area - takes remaining space */
+  .dashboard-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding-top: 60px; /* Account for fixed header */
+    min-height: 0; /* Allow flexbox to work properly */
   }
   
-  .btn-primary {
-    background-color: var(--primary-green);
-    color: var(--text-light);
-  }
-  
-  .btn-primary:hover {
-    background-color: var(--secondary-green);
-  }
-  
-  .btn-outline {
-    background-color: transparent;
-    color: var(--primary-green);
-    border: 2px solid var(--primary-green);
-  }
-  
-  .btn-outline:hover {
-    background-color: var(--primary-green);
-    color: var(--text-light);
-  }
-  
-  /* Page-specific styles */
-  .page-header {
-    margin: 1.5rem 0;
-  }
-  
-  .page-header p {
-    color: var(--secondary-brown);
-    margin-top: -0.5rem;
-  }
-  
-  /* Content sections */
-  .content-section {
-    margin: 2rem 0;
+  /* Page content wrapper - fills available space */
+  .page-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Allow scrolling within content if needed */
     padding: 1rem 0;
   }
   
-  /* Form styles */
-  .form-container {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    max-width: 500px;
-    margin: 2rem auto;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 1.5rem;
-  }
-  
-  .form-control {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius);
-    margin-top: 0.25rem;
-  }
-  
-  .form-link {
-    display: block;
-    text-align: right;
-    margin-top: 1rem;
-    color: var(--primary-green);
-  }
-  
-  /* Error page styles */
-  .error-container {
-    text-align: center;
-    padding: 3rem 0;
-  }
-  
-  .error-code {
-    font-size: 6rem;
-    font-weight: 700;
-    color: var(--primary-yellow);
-    margin-bottom: 0;
-    line-height: 1;
-  }
-  
-  .error-title {
-    margin-top: 0;
-  }
-  
-  /* Upload page styles */
-  .upload-section {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .upload-container {
-    border: 2px dashed var(--border-light);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .upload-icon {
-    font-size: 3rem;
-    color: var(--secondary-green);
-    margin-bottom: 1rem;
-  }
-  
-  .upload-formats {
-    font-size: 0.8rem;
-    color: var(--secondary-brown);
-    margin-top: 1rem;
-  }
-  
-  /* Settings page styles */
-  .settings-section {
-    background: white;
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-top: 1.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .settings-option {
-    margin-top: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border-light);
-  }
-  
-  .settings-controls {
+  /* Footer - fixed height */
+  .footer {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 0.75rem 0; /* Reduced padding */
+    flex-shrink: 0; /* Don't allow shrinking */
+    height: 60px; /* Fixed footer height */
     display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
+    align-items: center;
   }
   
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .container {
-      padding: 0 0.75rem;
-    }
-    
-    h1 {
-      font-size: 1.75rem;
-    }
-    
-    h2 {
-      font-size: 1.35rem;
-    }
-    
-    .btn {
-      min-height: 44px;
-      padding: 0.5rem 0.75rem;
-    }
+  /* Adjust dashboard title elements for smaller banner */
+  .dashboard-title-wrapper {
+    position: relative;
+    padding-top: 0.5rem; /* Reduced */
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
   
-  @media (max-width: 480px) {
-    .container {
-      padding: 0 0.5rem;
-    }
-    
-    h1 {
-      font-size: 1.5rem;
-    }
-    
-    h2 {
-      font-size: 1.25rem;
-    }
-    
-    .page-header {
-      margin: 1rem 0;
-    }
+  .dashboard-title-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem; /* Reduced gap */
+    max-width: 900px;
+    margin: 0 auto;
   }
   
-  /* Large screen optimizations */
-  @media (min-width: 1800px) {
-    html {
-      font-size: 16px;
-    }
-    
-    .container {
-      max-width: 1800px;
-      padding: 0 2rem;
-    }
+  .dashboard-logo {
+    max-height: 100px; /* Reduced logo size */
+    width: auto;
+    object-fit: contain;
   }
   
-  @media (min-width: 2560px) {
-    html {
-      font-size: 18px;
-    }
-    
-    .container {
-      max-width: 2400px;
-      padding: 0 3rem;
-    }
+  .dashboard-main-title {
+    font-size: 1.8rem; /* Reduced */
+    margin-bottom: 0.15rem;
+    color: var(--primary-green);
+    font-weight: 700;
   }
   
-  /* Font Awesome icon support */
-  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');
-  
-  /* Spinning animation for refresh indicator */
-  @keyframes custom-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  .dashboard-subtitle {
+    font-size: 1.1rem; /* Reduced */
+    margin-bottom: 0.15rem;
+    color: var(--primary-brown);
+    font-weight: 600;
   }
   
-  .fa-spin {
-    animation: custom-spin 2s infinite linear;
-  }
-  
-  #refresh-indicator {
-    display: inline-block;
-    animation: custom-spin 2s infinite linear;
-    color: #2D5E40 !important;
-    font-size: 1.1rem;
-    margin-right: 0.4rem;
+  /* Status indicators - smaller and repositioned */
+  .dashboard-status-indicators {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    z-index: 2;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-light);
   }
   
   .refresh-indicator {
     display: flex;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.9rem; /* Smaller */
     background-color: rgba(255, 255, 255, 0.7);
-    padding: 0.35rem 0.75rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 4px;
   }
   
-  .refresh-text {
-    margin-left: 0.3rem;
-    color: #2D5E40;
-    font-weight: 500;
+  .live-update-text {
+    font-size: 0.90rem; /* Smaller */
+    align-items: center;
+    font-weight: 600;
+    color: var(--primary-brown);
   }
   
-  .fas {
-    display: inline-block;
-    line-height: 1;
+  /* Content sections - more compact */
+  .content-section {
+    margin: 1rem 0; /* Reduced margin */
+    padding: 0.5rem 0; /* Reduced padding */
+  }
+  
+  .page-header {
+    margin: 1rem 0; /* Reduced margin */
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 900px) {
+    .dashboard-title-banner {
+      height: 100px; /* Smaller on mobile */
+    }
+    
+    .dashboard-status-indicators {
+      position: static;
+      flex-direction: row;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+      width: 100%;
+      max-width: 200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .dashboard-title-wrapper {
+      padding-top: 0;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-title-banner {
+      height: 80px; /* Even smaller on small mobile */
+    }
+    
+    .dashboard-title-content {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .dashboard-logo {
+      max-height: 40px;
+    }
+    
+    .dashboard-main-title {
+      font-size: 1.4rem;
+    }
+    
+    .dashboard-subtitle {
+      font-size: 0.9rem;
+    }
+    
+    .footer {
+      height: auto; /* Allow height to adjust on mobile */
+      padding: 0.5rem 0;
+    }
+    
+    .footer-content {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
   }

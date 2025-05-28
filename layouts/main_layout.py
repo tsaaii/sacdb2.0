@@ -1,7 +1,8 @@
 """
-layouts/main_layout.py - Complete main layout structure with logos and footer
+layouts/main_layout.py - Updated main layout for no-scroll design
 
-This file defines the common layout elements with logos and complete footer.
+This file defines the main layout with proper height distribution to ensure
+header, content, and footer are all visible without scrolling.
 """
 
 from dash import html, dcc
@@ -9,10 +10,10 @@ import dash_bootstrap_components as dbc
 
 def create_main_layout():
     """
-    Create the main application layout structure with logos and footer.
+    Create the main application layout with no-scroll design.
     
     Returns:
-        dash component: The main layout structure with header, content area, and footer
+        dash component: The main layout structure optimized for viewport fitting
     """
     # Define color constants
     DARK_GREEN = "#2D5E40"  # Primary green color
@@ -24,13 +25,12 @@ def create_main_layout():
         # Header hover trigger area
         html.Div(className="header-hover-area"),
         
-        # Header Component
+        # Header Component - Fixed and compact
         html.Header(className="header", children=[
             html.Div(className="container", children=[
                 html.Div(className="header-content", children=[
                     # Logo & Title
                     html.Div(className="header-title", children=[
-                        html.Img(src="/assets/img/logo.png", alt="Swaccha Andhra", className="header-logo"),
                         html.H1("Swaccha Andhra Dashboard")
                     ]),
                     
@@ -55,24 +55,24 @@ def create_main_layout():
             ])
         ]),
         
-        # Dashboard Title Banner with Logos and Clock
+        # Compact Dashboard Title Banner
         html.Div(className="dashboard-title-banner", children=[
             html.Div(className="container", children=[
                 html.Div(className="dashboard-title-wrapper", children=[
-                    # Status indicators - clock in top right
+                    # Status indicators - compact and positioned
                     html.Div(className="dashboard-status-indicators", children=[
                         # Auto-refresh indicator
                         html.Div(className="refresh-indicator", children=[
                             html.I(id="refresh-indicator", className="fas fa-sync-alt fa-spin", 
-                                  style={"color": DARK_GREEN}),
-                            html.Span("Auto-refreshing", className="refresh-text")
+                                  style={"color": DARK_GREEN, "fontSize": "0.9rem", "marginRight": "0.3rem"}),
+                            html.Span("Auto-refresh", className="refresh-text")
                         ]),
                         
                         # Time display
                         html.Div(id="live-time", className="live-time")
                     ]),
                     
-                    # Main title content with logos
+                    # Main title content with logos - more compact
                     html.Div(className="dashboard-title-content", children=[
                         # Left Logo
                         html.Img(src="/assets/img/left.png", alt="Left Logo", className="dashboard-logo left-logo"),
@@ -80,7 +80,7 @@ def create_main_layout():
                         # Title Container
                         html.Div(className="dashboard-title-container", children=[
                             html.H1("Swaccha Andhra", className="dashboard-main-title"),
-                            html.H2("Real-Time Monitoring Dashboard for Legacy Waste Reclamation", className="dashboard-subtitle")
+                            html.H2("Real-Time Monitoring Dashboard for Legacy Waste Reclamation", className="dashboard-subtitle")  # Shortened subtitle
                         ]),
                         
                         # Right Logo
@@ -90,32 +90,26 @@ def create_main_layout():
             ])
         ]),
         
-        # Main content with proper flex structure
+        # Main content - flexible height
         html.Main(className="dashboard-main-content", children=[
             html.Div(id='page-content', className="page-content-wrapper")
         ]),
         
-        # Complete Footer component
+        # Compact Footer
         html.Footer(className="footer", children=[
             html.Div(className="container", children=[
                 html.Div(className="footer-content", children=[
-                    # Footer Logo and Brand
-                    html.Div(className="footer-logo", children=[
-                        html.Img(src="/assets/img/logo-white.png", alt="Swaccha Andhra", style={"height": "28px", "width": "auto"}),
-                        html.Span("Swaccha Andhra", style={"fontWeight": "600", "fontSize": "1rem", "marginLeft": "0.5rem"})
-                    ]),
-                    
-                    # Footer Links
+
+                    # Footer Links - more compact
                     html.Div(className="footer-links", children=[
                         html.A("About", href="/about", className="footer-link"),
                         html.A("Help", href="/help", className="footer-link"),
-                        html.A("Contact", href="/contact", className="footer-link"),
-                        html.A("Policy", href="/policy", className="footer-link")
+                        html.A("Contact", href="/contact", className="footer-link")
                     ]),
                     
                     # Copyright
                     html.Div(className="footer-copyright", children=[
-                        "© 2025 Advitia Labs • Made in Andhra Pradesh"
+                        "© 2025 Advitia Labs"
                     ])
                 ])
             ])
