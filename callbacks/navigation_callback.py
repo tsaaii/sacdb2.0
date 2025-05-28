@@ -1,49 +1,72 @@
 """
-callbacks/navigation_callback.py - Navigation callbacks
+callbacks/navigation_callback.py - Updated navigation callbacks with conditional header
 
-This file defines callbacks related to navigation and routing.
+This file defines callbacks for conditional navigation based on authentication status.
 """
 
 from dash import callback, Output, Input, State, html, no_update
 from dash.exceptions import PreventUpdate
 
-# Callback to handle active navigation link highlighting
+# Callback to handle conditional navigation based on current page
 @callback(
-    Output('nav-links', 'children'),
+    [Output('nav-links', 'children'),
+     Output('header-actions', 'children')],
     [Input('url', 'pathname')]
 )
-def update_active_link(pathname):
+def update_conditional_navigation(pathname):
     """
-    Update the active link in the navigation based on current URL.
+    Update navigation and header actions based on current page and authentication status.
     
     Args:
         pathname: Current URL pathname
         
     Returns:
-        list: Updated navigation link components
+        tuple: (navigation_links, header_actions)
     """
-    # Define navigation links and their paths
-    nav_links = [
-        {"title": "Dashboard", "path": "/"},
-        {"title": "Reports", "path": "/reports"},
-        {"title": "Analytics", "path": "/analytics"},
-        {"title": "Upload", "path": "/upload"},
-        {"title": "Settings", "path": "/settings"}
-    ]
+    # Check if user is on public pages (no authentication required)
+    public_pages = ['/']
+    is_public_page = pathname in public_pages
     
-    # Create navigation links with active class for current path
-    links = []
-    for link in nav_links:
-        # Determine if this link should be active
-        is_active = pathname == link["path"] or (pathname == "/" and link["path"] == "/")
+    if is_public_page:
+        # Public page - show only login option
+        nav_links = []  # No navigation links on public page
         
-        # Create link component with appropriate active class
-        links.append(
-            html.A(
-                link["title"], 
-                href=link["path"], 
-                className=f"header-nav-link {'active' if is_active else ''}"
+        header_actions = [
+            # Clock display
+            html.Div(id="header-clock", className="clock-display"),
+            # Login button only
+            html.A("Login", href="/login", className="btn")
+        ]
+    else:
+        # Authenticated pages - show full navigation
+        nav_links_data = [
+            {"title": "Dashboard", "path": "/main"},
+            {"title": "Reports", "path": "/reports"},
+            {"title": "Analytics", "path": "/analytics"},
+            {"title": "Upload", "path": "/upload"},
+            {"title": "Settings", "path": "/settings"}
+        ]
+        
+        # Create navigation links with active class for current path
+        nav_links = []
+        for link in nav_links_data:
+            # Determine if this link should be active
+            is_active = pathname == link["path"]
+            
+            # Create link component with appropriate active class
+            nav_links.append(
+                html.A(
+                    link["title"], 
+                    href=link["path"], 
+                    className=f"header-nav-link {'active' if is_active else ''}"
+                )
             )
-        )
+        
+        header_actions = [
+            # Clock display
+            html.Div(id="header-clock", className="clock-display"),
+            # Logout button for authenticated users
+            html.Button("Logout", id="logout-btn", className="btn btn-accent", n_clicks=0)
+        ]
     
-    return links
+    return nav_links, header_actions

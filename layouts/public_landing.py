@@ -1,7 +1,7 @@
 """
-layouts/public_landing.py - Compact public dashboard layout
+layouts/public_landing.py - Updated public dashboard layout with login only
 
-This file defines a compact public dashboard that fits within the viewport.
+This file defines a public dashboard that only shows login option.
 """
 
 from dash import html, dcc
@@ -9,18 +9,18 @@ import dash_bootstrap_components as dbc
 
 def create_public_dashboard():
     """
-    Create a compact public dashboard that fits within available space.
+    Create a public dashboard that shows only basic info and login option.
     
     Returns:
-        dash component: The compact dashboard layout
+        dash component: The public dashboard layout
     """
     
     # Overall dashboard layout - compact and efficient
     return html.Div(className="container", children=[
         # Compact page header
         html.Div(className="page-header", style={"margin": "0.5rem 0"}, children=[
-            html.H2("Dashboard", style={"margin": "0 0 0.25rem 0"}),
-            html.P("Welcome to the Swaccha Andhra Dashboard.", style={"margin": "0", "fontSize": "0.9rem"})
+            html.H2("Welcome to Swaccha Andhra Dashboard", style={"margin": "0 0 0.25rem 0"}),
+            html.P("Real-Time Monitoring Dashboard for Legacy Waste Reclamation in Andhra Pradesh.", style={"margin": "0", "fontSize": "0.9rem"})
         ]),
         
         # Main content in a grid layout for efficient space usage
@@ -102,17 +102,4 @@ def create_public_dashboard():
                 ])
             ])
         ]),
-        
-        # Action buttons row
-        html.Div(style={
-            "display": "flex",
-            "gap": "0.75rem",
-            "justifyContent": "center",
-            "marginTop": "1rem",
-            "flexWrap": "wrap"
-        }, children=[
-            html.A("View Reports", href="/reports", className="btn btn-primary", style={"fontSize": "0.85rem"}),
-            html.A("Analytics", href="/analytics", className="btn btn-outline", style={"fontSize": "0.85rem"}),
-            html.A("Upload Data", href="/upload", className="btn", style={"fontSize": "0.85rem"})
-        ])
     ])
