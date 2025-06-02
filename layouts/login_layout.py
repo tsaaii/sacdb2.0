@@ -21,7 +21,7 @@ def create_login_layout():
             # Logo section
             html.Div(className="login-logo-section", children=[
                 html.Img(
-                    src="/assets/img/logo.png", 
+                    src="/assets/img/right.png", 
                     alt="Swaccha Andhra Logo",
                     className="login-logo"
                 ),

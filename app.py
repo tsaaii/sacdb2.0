@@ -1,8 +1,8 @@
 """
-app.py - Minimal Swaccha Andhra Dashboard
+app.py - Updated Swaccha Andhra Dashboard with Enhanced Features
 
-This file defines the Dash application with basic functionality.
-Fixed import issues by using try-except blocks.
+This file defines the Dash application with enhanced dashboard functionality including
+filters, data tables, and CSV export capabilities.
 """
 
 import dash
@@ -94,12 +94,20 @@ try:
 except ImportError as e:
     print(f"Warning: Could not import routing_callback: {e}")
 
-# THIS IS THE KEY ADDITION - Import auth callback
+# Import auth callback
 try:
     import callbacks.auth_callback
     print("Auth callback imported successfully")
 except ImportError as e:
     print(f"Warning: Could not import auth_callback: {e}")
+
+# NEW: Import enhanced dashboard callbacks
+try:
+    import callbacks.enhanced_dashboard_callbacks
+    print("Enhanced dashboard callbacks imported successfully")
+except ImportError as e:
+    print(f"Warning: Could not import enhanced_dashboard_callbacks: {e}")
+    print("Enhanced dashboard features may not be available.")
 
 # Run the server
 if __name__ == '__main__':
@@ -112,6 +120,12 @@ if __name__ == '__main__':
     
     print("Starting Swaccha Andhra Dashboard...")
     print(f"Running on {host}:{port}")
+    print("Features available:")
+    print("- Basic dashboard and navigation")
+    print("- Authentication system")
+    print("- Enhanced dashboard with filters and data export")
+    print("- Real-time clock updates")
+    print("- Responsive design for multiple screen sizes")
     
     # Start the app
     app.run(debug=debug, port=port, host=host)
