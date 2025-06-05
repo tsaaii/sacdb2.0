@@ -7,3 +7,6 @@ numpy==1.24.3
 pandas==2.0.3
 plotly==5.9.0
 werkzeug==2.2.2
+google-auth==2.40.3
+google-auth-oauthlib==1.2.2
+google-auth-httplib2==0.22.0

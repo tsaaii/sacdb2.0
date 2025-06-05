@@ -1,49 +1,82 @@
 """
-callbacks/navigation_callback.py - Updated navigation callbacks with conditional header
+callbacks/navigation_callback.py - Fixed navigation callbacks with consolidated outputs
 
-This file defines callbacks for conditional navigation based on authentication status.
+This file consolidates all navigation updates into a single callback to avoid duplicate outputs.
 """
 
 from dash import callback, Output, Input, State, html, no_update
 from dash.exceptions import PreventUpdate
 
-# Callback to handle conditional navigation based on current page and session
+# Check if Google OAuth is available
+try:
+    from auth.google_oauth import get_current_user, is_authenticated
+    OAUTH_AVAILABLE = True
+except ImportError:
+    OAUTH_AVAILABLE = False
+    def get_current_user():
+        return None
+    def is_authenticated():
+        return False
+
 @callback(
     [Output('nav-links', 'children'),
      Output('header-actions', 'children')],
     [Input('url', 'pathname'),
-     Input('user-session', 'data')]
+     Input('user-session', 'data'),
+     Input('refresh-interval', 'n_intervals')],  # Added refresh interval to update auth status
+    prevent_initial_call=False  # Allow initial call to set up navigation
 )
-def update_conditional_navigation(pathname, session_data):
+def update_navigation_consolidated(pathname, session_data, n_intervals):
     """
-    Update navigation and header actions based on current page and authentication status.
-    
-    Args:
-        pathname: Current URL pathname
-        session_data: User session data
-        
-    Returns:
-        tuple: (navigation_links, header_actions)
+    Consolidated callback that handles all navigation updates.
+    This is the ONLY callback that should update nav-links and header-actions.
     """
-    # Check if user is authenticated
-    is_authenticated = session_data and session_data.get('authenticated', False)
     
-    # Public routes that don't require authentication
+    # Check authentication from multiple sources
+    oauth_authenticated = is_authenticated() if OAUTH_AVAILABLE else False
+    dash_authenticated = session_data and session_data.get('authenticated', False)
+    
+    is_auth = oauth_authenticated or dash_authenticated
+    
+    # Get user info
+    if OAUTH_AVAILABLE and oauth_authenticated:
+        current_user = get_current_user()
+    else:
+        current_user = session_data
+    
+    # Public routes
     public_routes = ['/', '/login']
     is_public_page = pathname in public_routes
     
-    if not is_authenticated or is_public_page:
-        # Public page or unauthenticated - show only login option
-        nav_links = []  # No navigation links on public page
+    if not is_auth or is_public_page:
+        # Public page - show login option
+        nav_links = []
+        
+        if OAUTH_AVAILABLE:
+            # Google OAuth login button
+            login_button = html.A(
+                [
+                    html.I(className="fab fa-google", style={"marginRight": "0.5rem"}),
+                    "Login with Google"
+                ],
+                href="/auth/login",
+                className="btn btn-primary",
+                style={"fontSize": "0.9rem"}
+            )
+        else:
+            # Regular login button
+            login_button = html.A(
+                "Login", 
+                href="/login", 
+                className="btn"
+            )
         
         header_actions = [
-            # Clock display
             html.Div(id="header-clock", className="clock-display"),
-            # Login button only
-            html.A("Login", href="/login", className="btn")
+            login_button
         ]
     else:
-        # Authenticated pages - show full navigation
+        # Authenticated user - show full navigation
         nav_links_data = [
             {"title": "Dashboard", "path": "/main"},
             {"title": "Reports", "path": "/reports"},
@@ -52,13 +85,9 @@ def update_conditional_navigation(pathname, session_data):
             {"title": "Settings", "path": "/settings"}
         ]
         
-        # Create navigation links with active class for current path
         nav_links = []
         for link in nav_links_data:
-            # Determine if this link should be active
             is_active = pathname == link["path"]
-            
-            # Create link component with appropriate active class
             nav_links.append(
                 html.A(
                     link["title"], 
@@ -67,14 +96,54 @@ def update_conditional_navigation(pathname, session_data):
                 )
             )
         
+        # User info display
+        user_name = "User"
+        user_email = ""
+        user_picture = None
+        
+        if current_user:
+            user_name = current_user.get('name', current_user.get('username', 'User'))
+            user_email = current_user.get('email', '')
+            user_picture = current_user.get('picture')
+        
+        # Create user profile section
+        user_profile = []
+        if user_picture:
+            user_profile.append(
+                html.Img(
+                    src=user_picture,
+                    style={
+                        "width": "28px",
+                        "height": "28px", 
+                        "borderRadius": "50%",
+                        "marginRight": "0.5rem"
+                    }
+                )
+            )
+        
+        user_profile.append(
+            html.Span(
+                user_name.split()[0] if user_name else "User",
+                style={
+                    "color": "#FEFEFE",
+                    "fontSize": "0.9rem",
+                    "marginRight": "1rem"
+                }
+            )
+        )
+        
+        # Logout button
+        if OAUTH_AVAILABLE:
+            logout_href = "/auth/logout"
+            logout_text = "Logout"
+        else:
+            logout_href = "/"
+            logout_text = "Logout"
+        
         header_actions = [
-            # Clock display
             html.Div(id="header-clock", className="clock-display"),
-            # Show username if available
-            html.Span(f"Welcome, {session_data.get('username', 'User')}", 
-                     style={"color": "#FEFEFE", "marginRight": "1rem", "fontSize": "0.9rem"}),
-            # Logout button for authenticated users
-            html.Button("Logout", id="logout-btn", className="btn btn-accent", n_clicks=0)
+            html.Div(user_profile, style={"display": "flex", "alignItems": "center"}),
+            html.A(logout_text, href=logout_href, className="btn btn-accent")
         ]
     
     return nav_links, header_actions
