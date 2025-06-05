@@ -1,0 +1,443 @@
+/* 
+assets/css/header-responsive.css - Enhanced responsive header styles
+Replace or add to your existing header-footer.css
+*/
+
+/* Enhanced Header Styles with Better Responsiveness */
+.header {
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    padding: 0.6rem 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1001;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    min-height: 60px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-height: 48px;
+    gap: 0.5rem;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+.header-title h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--text-light);
+    white-space: nowrap;
+}
+
+/* Navigation - horizontal scrollable on small screens */
+.header-nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+    overflow-x: auto;
+    padding: 0 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+.header-nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.header-nav-link {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.4rem 0.6rem;
+    transition: color var(--transition-speed);
+    font-weight: 500;
+    position: relative;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.header-nav-link:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-yellow);
+    transition: width var(--transition-speed);
+}
+
+.header-nav-link:hover:after,
+.header-nav-link.active:after {
+    width: 80%;
+}
+
+/* Header Actions - better responsive layout */
+.header-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 0;
+}
+
+/* Clock Display - responsive sizing */
+.clock-display {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* User Profile Section */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    flex-shrink: 0;
+}
+
+.user-profile img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.user-profile span {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px;
+}
+
+/* Buttons in header */
+.header .btn {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.85rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Header hover area */
+.header-hover-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 1000;
+}
+
+/* Show header states */
+.header:hover,
+.header-hover-area:hover + .header,
+.header.active {
+    transform: translateY(0);
+}
+
+/* Mobile Nav Toggle Button */
+.mobile-nav-toggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1002;
+    background-color: var(--primary-green);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* Responsive Breakpoints */
+
+/* Large Tablets and Small Laptops (1024px and below) */
+@media (max-width: 1024px) {
+    .header-title h1 {
+        font-size: 1.1rem;
+    }
+    
+    .header-nav {
+        gap: 1rem;
+    }
+    
+    .header-nav-link {
+        font-size: 0.85rem;
+        padding: 0.3rem 0.5rem;
+    }
+    
+    .clock-display {
+        font-size: 0.75rem;
+    }
+    
+    .user-profile span {
+        max-width: 80px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .header {
+        padding: 0.5rem 0;
+        min-height: 56px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    /* Top row: Title and Actions */
+    .header-top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+    
+    .header-title {
+        gap: 8px;
+    }
+    
+    .header-title h1 {
+        font-size: 1rem;
+    }
+    
+    /* Actions - more compact */
+    .header-actions {
+        gap: 0.5rem;
+        flex-wrap: nowrap;
+    }
+    
+    .clock-display {
+        font-size: 0.7rem;
+        order: 1;
+    }
+    
+    .user-profile {
+        order: 2;
+    }
+    
+    .user-profile span {
+        display: none; /* Hide username on mobile */
+    }
+    
+    .header .btn {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.6rem;
+        order: 3;
+    }
+    
+    /* Navigation - second row, horizontal scroll */
+    .header-nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.75rem;
+        padding: 0.25rem 0;
+        margin-top: 0.25rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .header-nav-link {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+        min-width: max-content;
+    }
+    
+    /* Show mobile nav toggle */
+    .mobile-nav-toggle {
+        display: flex;
+        top: 8px;
+        right: 8px;
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Mobile: Header initially hidden */
+    .header {
+        transform: translateY(-100%);
+    }
+    
+    .header.active {
+        transform: translateY(0);
+    }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+    .header {
+        min-height: 52px;
+    }
+    
+    .header-content {
+        padding: 0 0.25rem;
+    }
+    
+    .header-title h1 {
+        font-size: 0.9rem;
+    }
+    
+    .header-actions {
+        gap: 0.25rem;
+    }
+    
+    .clock-display {
+        font-size: 0.65rem;
+        display: none; /* Hide clock on very small screens */
+    }
+    
+    .user-profile img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .header .btn {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .header-nav {
+        gap: 0.5rem;
+    }
+    
+    .header-nav-link {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .mobile-nav-toggle {
+        width: 32px;
+        height: 32px;
+        top: 6px;
+        right: 6px;
+    }
+}
+
+/* Very Small Screens (360px and below) */
+@media (max-width: 360px) {
+    .header-title h1 {
+        font-size: 0.8rem;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.125rem;
+    }
+    
+    .header .btn {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .header-nav-link {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.3rem;
+    }
+}
+
+/* Ensure proper stacking and layout */
+.header-content > * {
+    flex-shrink: 0;
+}
+
+/* Better scrollbar styling for navigation */
+.header-nav {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.header-nav::-webkit-scrollbar {
+    height: 2px;
+}
+
+.header-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.header-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+/* Touch-friendly tap targets */
+@media (hover: none) and (pointer: coarse) {
+    .header-nav-link,
+    .header .btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Animation for mobile nav toggle */
+.mobile-nav-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.header.active .mobile-nav-toggle i {
+    transform: rotate(90deg);
+}
+
+/* Improved focus states for accessibility */
+.header-nav-link:focus,
+.header .btn:focus,
+.mobile-nav-toggle:focus {
+    outline: 2px solid var(--primary-yellow);
+    outline-offset: 2px;
+}
+
+/* Logo responsiveness if you have logos in header */
+.header-logo {
+    height: 32px;
+    width: auto;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        height: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-logo {
+        height: 24px;
+    }
+}
