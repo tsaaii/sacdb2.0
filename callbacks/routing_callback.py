@@ -1,7 +1,7 @@
 """
-callbacks/routing_callback.py - Fixed routing with proper error page handling
+callbacks/routing_callback.py - Updated routing with error page handling
 
-This fixes the children argument conflict in the error page.
+This file adds error page routing for OAuth errors.
 """
 
 from dash import callback, Output, Input, State, html, dcc, no_update
@@ -10,6 +10,25 @@ import pandas as pd
 import plotly.express as px
 from datetime import date
 from urllib.parse import parse_qs
+
+# Import error layouts
+try:
+    from layouts.error_layouts import create_unauthorized_error_layout, create_generic_error_layout
+except ImportError:
+    # Fallback if error layouts file doesn't exist
+    def create_unauthorized_error_layout():
+        return html.Div(className="container", children=[
+            html.H2("Access Denied", style={"color": "#C74A3C"}),
+            html.P("Your email is not authorized. Please contact admin at +91-6303-640-757"),
+            html.A("Try Again", href="/", className="btn btn-primary")
+        ])
+    
+    def create_generic_error_layout(error_type="unknown", error_message="An error occurred"):
+        return html.Div(className="container", children=[
+            html.H2("Error", style={"color": "#C74A3C"}),
+            html.P(error_message),
+            html.A("Back to Home", href="/", className="btn btn-primary")
+        ])
 
 # Import existing layouts with fallbacks
 try:
@@ -29,143 +48,6 @@ except ImportError:
             html.H2("Analytics"),
             html.P("Analytics functionality will be available soon.")
         ])
-
-def create_unauthorized_error_page():
-    logo_div = html.Div()
-
-    error_icon = html.I(
-        className="fas fa-user-slash", style={
-        "fontSize": "3rem",
-        "color": "#8B0000",
-        "marginBottom": "1rem"
-    })
-
-    error_message = html.Div([
-        html.H2("Access Denied", style={
-            "color": "#2D5E40",
-            "fontSize": "1.6rem",
-            "marginBottom": "0.75rem"
-        }),
-        html.P("You do not have permission to access this dashboard.", style={
-            "color": "#5A5A5A",
-            "marginBottom": "1.5rem",
-            "fontSize": "1rem"
-        })
-    ])
-
-    phone_section = html.Div([
-        html.I(className="fas fa-mobile-alt", style={"fontSize": "1.2rem", "marginBottom": "0.25rem", "color": "#2D5E40"}),
-        html.Div("+91-6303-640-757", style={
-            "fontSize": "1.3rem",
-            "fontWeight": "bold",
-            "letterSpacing": "1px",
-            "margin": "0.5rem 0",
-            "color": "#2D5E40"
-        }),
-        html.P("WhatsApp / SMS", style={"margin": "0", "fontSize": "0.85rem", "color": "#888"})
-    ], style={"textAlign": "center", "margin": "1rem 0"})
-
-    message_template = html.Div([
-        html.P("Message template:", style={"fontWeight": "bold", "marginBottom": "0.3rem", "color": "#333"}),
-        html.P('"Hi, I need access to Swaccha Andhra Dashboard. My email: [your-email@domain.com]"', style={"color": "#555"})
-    ], style={
-        "background": "#F9F9F9",
-        "padding": "1rem",
-        "borderRadius": "6px",
-        "fontStyle": "italic",
-        "color": "#333",
-        "border": "1px solid #DDD"
-    })
-
-    contact_card = html.Div([
-        html.H3([
-            html.I(className="fas fa-key", style={"marginRight": "0.5rem", "color": "#2D5E40"}),
-            "Request Access"
-        ], style={"marginBottom": "0.75rem", "color": "#2D5E40"}),
-        html.P("To get access to this dashboard, please send a message with your email ID to:", style={"color": "#555"}),
-        phone_section,
-        message_template
-    ], style={
-        "background": "#FFFFFF",
-        "padding": "1.5rem",
-        "borderRadius": "8px",
-        "marginBottom": "1.5rem",
-        "boxShadow": "0 2px 6px rgba(0, 0, 0, 0.05)",
-        "border": "1px solid #E0E0E0"
-    })
-
-    instructions = html.Div()
-
-    action_buttons = html.Div([
-        html.A([
-            html.I(className="fas fa-redo-alt", style={"marginRight": "0.5rem"}),
-            "Try Again"
-        ], href="/", style={
-            "display": "inline-flex",
-            "alignItems": "center",
-            "padding": "0.6rem 1.2rem",
-            "margin": "0.4rem",
-            "backgroundColor": "#2D5E40",
-            "color": "white",
-            "textDecoration": "none",
-            "borderRadius": "6px",
-            "fontWeight": "600"
-        }),
-        html.A([
-            html.I(className="fas fa-phone", style={"marginRight": "0.5rem"}),
-            "Call Now"
-        ], href="tel:+916303640757", style={
-            "display": "inline-flex",
-            "alignItems": "center",
-            "padding": "0.6rem 1.2rem",
-            "margin": "0.4rem",
-            "backgroundColor": "#E6B800",
-            "color": "#2D5E40",
-            "textDecoration": "none",
-            "borderRadius": "6px",
-            "fontWeight": "600"
-        })
-    ])
-
-    footer = html.P("© 2025 Advitia Labs • Made in Andhra Pradesh", style={
-        "marginTop": "2rem",
-        "fontSize": "0.85rem",
-        "color": "#999"
-    })
-
-    content_card = html.Div([
-        logo_div,
-        error_icon,
-        error_message,
-        contact_card,
-        instructions,
-        action_buttons,
-        footer
-    ], style={
-        "background": "#FFFFFF",
-        "padding": "2rem 1.5rem",
-        "borderRadius": "10px",
-        "boxShadow": "0 4px 12px rgba(0, 0, 0, 0.08)",
-        "border": "1px solid #E8E4D0",
-        "maxWidth": "600px",
-        "width": "100%"
-    })
-
-    return html.Div(
-        content_card,
-        style={
-            "backgroundColor": "#F9F9F9",
-            "minHeight": "100vh",
-            "display": "flex",
-            "flexDirection": "column",
-            "justifyContent": "center",
-            "alignItems": "center",
-            "padding": "1.5rem",
-            "textAlign": "center"
-        }
-    )
-
-
 
 def create_main_dashboard():
     """Create the main authenticated dashboard"""
@@ -284,28 +166,32 @@ def create_oauth_login():
     """Create Google OAuth login interface"""
     return html.Div(className="oauth-login-form", children=[
         html.Div(style={"textAlign": "center", "marginBottom": "2rem"}, children=[
-            html.A([
-                html.I(className="fab fa-google", style={
-                    "fontSize": "1.5rem", 
-                    "marginRight": "1rem",
-                    "color": "#4285F4"
-                }),
-                html.Span("Continue with Google", style={"fontSize": "1.1rem"})
-            ], href="/auth/login", style={
-                "display": "inline-flex",
-                "alignItems": "center",
-                "justifyContent": "center",
-                "width": "100%",
-                "padding": "1rem 2rem",
-                "backgroundColor": "white",
-                "color": "#2D5E40",
-                "border": "2px solid #E8E4D0",
-                "borderRadius": "12px",
-                "textDecoration": "none",
-                "fontWeight": "600",
-                "transition": "all 0.3s ease",
-                "boxShadow": "0 2px 8px rgba(0, 0, 0, 0.1)"
-            })
+            html.A(
+                [
+                    html.I(className="fab fa-google", style={
+                        "fontSize": "1.5rem", 
+                        "marginRight": "1rem",
+                        "color": "#4285F4"
+                    }),
+                    html.Span("Continue with Google", style={"fontSize": "1.1rem"})
+                ],
+                href="/auth/login",
+                style={
+                    "display": "inline-flex",
+                    "alignItems": "center",
+                    "justifyContent": "center",
+                    "width": "100%",
+                    "padding": "1rem 2rem",
+                    "backgroundColor": "white",
+                    "color": "#2D5E40",
+                    "border": "2px solid #E8E4D0",
+                    "borderRadius": "12px",
+                    "textDecoration": "none",
+                    "fontWeight": "600",
+                    "transition": "all 0.3s ease",
+                    "boxShadow": "0 2px 8px rgba(0, 0, 0, 0.1)"
+                }
+            )
         ])
     ])
 
@@ -355,20 +241,25 @@ def create_fallback_login():
             )
         ]),
         
-        html.Button([
-            html.I(className="fas fa-sign-in-alt", style={"marginRight": "0.5rem"}),
-            "Log In to Dashboard"
-        ], id="login-submit-btn", n_clicks=0, style={
-            "width": "100%",
-            "padding": "0.875rem",
-            "backgroundColor": "#2D5E40",
-            "color": "white",
-            "border": "none",
-            "borderRadius": "8px",
-            "fontSize": "1rem",
-            "fontWeight": "600",
-            "cursor": "pointer"
-        })
+        html.Button(
+            [
+                html.I(className="fas fa-sign-in-alt", style={"marginRight": "0.5rem"}),
+                "Log In to Dashboard"
+            ],
+            id="login-submit-btn",
+            n_clicks=0,
+            style={
+                "width": "100%",
+                "padding": "0.875rem",
+                "backgroundColor": "#2D5E40",
+                "color": "white",
+                "border": "none",
+                "borderRadius": "8px",
+                "fontSize": "1rem",
+                "fontWeight": "600",
+                "cursor": "pointer"
+            }
+        )
     ])
 
 @callback(
@@ -379,7 +270,13 @@ def create_fallback_login():
 def display_page_with_error_handling(pathname, search_params):
     """
     Route to the appropriate page layout with error handling.
-    Fixed to avoid children argument conflicts.
+    
+    Args:
+        pathname: Current URL pathname
+        search_params: URL search parameters (for error handling)
+        
+    Returns:
+        dash.components: The page layout for the requested route
     """
     
     # Handle error parameters in URL
@@ -389,11 +286,24 @@ def display_page_with_error_handling(pathname, search_params):
             error_type = params.get('error', [None])[0]
             
             if error_type == 'unauthorized_email':
-                return create_unauthorized_error_page()
-                
-        except Exception as e:
-            # If error parsing fails, continue with normal routing
-            print(f"Error parsing URL params: {e}")
+                return create_unauthorized_error_layout()
+            elif error_type == 'auth_failed':
+                return create_generic_error_layout(
+                    error_type="auth_failed",
+                    error_message="Authentication failed. Please try logging in again."
+                )
+            elif error_type == 'oauth_not_configured':
+                return create_generic_error_layout(
+                    error_type="oauth_not_configured",
+                    error_message="OAuth is not properly configured. Please contact the administrator."
+                )
+            elif error_type == 'invalid_state':
+                return create_generic_error_layout(
+                    error_type="invalid_state",
+                    error_message="Invalid security token. Please try logging in again."
+                )
+        except Exception:
+            pass  # Continue with normal routing if error parsing fails
     
     # Normal page routing
     if pathname == '/' or pathname is None:
@@ -426,13 +336,9 @@ def display_page_with_error_handling(pathname, search_params):
                 html.H1("404", style={"fontSize": "6rem", "fontWeight": "700", "color": "#F2C94C", "margin": "0"}),
                 html.H2("Page Not Found", style={"color": "#2D5E40"}),
                 html.P("The page you requested does not exist."),
-                html.A("Go to Home", href="/", style={
-                    "backgroundColor": "#2D5E40", 
-                    "color": "white", 
-                    "padding": "0.75rem 1.5rem", 
-                    "textDecoration": "none", 
-                    "borderRadius": "8px"
-                })
+                html.A("Go to Home", href="/", 
+                      style={"backgroundColor": "#2D5E40", "color": "white", "padding": "0.75rem 1.5rem", 
+                            "textDecoration": "none", "borderRadius": "8px"})
             ])
         ])
 

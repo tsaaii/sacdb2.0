@@ -124,7 +124,8 @@ class GoogleOAuth:
             
             config = {
                 "allowed_emails": [
-
+                    "saaitejaa@gmail.com",
+                    "admin@advitialabs.com"
                 ]
             }
             

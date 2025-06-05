@@ -3,3 +3,11 @@ venv/
 client_secrets.json
 
 config/
+
+client_secrets.json.template
+
+.DS_Store
+.DS_Store?
+
+auth/__pycache__/
+callbacks/__pycache__/
