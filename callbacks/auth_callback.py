@@ -1,12 +1,12 @@
 """
-callbacks/auth_callback.py - Fixed Authentication with Conditional Callbacks
+callbacks/auth_callback.py - Fixed Authentication with No Login Alert Conflicts
 
-This file fixes the missing login-submit-btn error by making login callbacks conditional.
+This file handles authentication routing without conflicting with login form callbacks.
+The login form callbacks are now handled in routing_callback.py
 """
 
-from dash import callback, Output, Input, State, no_update, html, callback_context, clientside_callback
+from dash import callback, Output, Input, State, no_update, callback_context
 from dash.exceptions import PreventUpdate
-import dash
 
 # Check if Google OAuth is available
 try:
@@ -32,19 +32,19 @@ def validate_user(username, password):
         return {'id': username, 'username': username, 'role': 'user'}
     return None
 
-# Main routing and authentication callback (without login form dependencies)
+# Main authentication and routing callback (NO login form dependencies)
 @callback(
-    [Output('user-session', 'data'),
-     Output('url', 'pathname')],
+    [Output('user-session', 'data', allow_duplicate=True),
+     Output('url', 'pathname', allow_duplicate=True)],
     [Input('url', 'pathname'),
      Input('url', 'search')],
     [State('user-session', 'data')],
     prevent_initial_call=True
 )
-def handle_routing_and_auth(pathname, search_params, session_data):
+def handle_auth_routing(pathname, search_params, session_data):
     """
-    Handles route protection and URL error handling.
-    This callback doesn't depend on login form elements.
+    Handles authentication state management and routing protection.
+    This callback does NOT handle login form elements to avoid conflicts.
     """
     ctx = callback_context
     
@@ -68,7 +68,7 @@ def handle_routing_and_auth(pathname, search_params, session_data):
         if not (oauth_authenticated or dash_authenticated):
             # Redirect to appropriate login page
             if OAUTH_AVAILABLE:
-                return no_update, '/auth/login'
+                return no_update, '/login'  # Changed to /login instead of /auth/login
             else:
                 return no_update, '/login'
         
@@ -78,105 +78,136 @@ def handle_routing_and_auth(pathname, search_params, session_data):
     
     return no_update, no_update
 
-# Login form callback - only registers when login elements exist
-def register_login_callback():
-    """Register login callback only when login page is loaded"""
-    
-    @callback(
-        [Output('login-alert', 'is_open'),
-         Output('login-alert', 'children'),
-         Output('user-session', 'data', allow_duplicate=True),
-         Output('url', 'pathname', allow_duplicate=True)],
-        [Input('login-submit-btn', 'n_clicks')],
-        [State('login-username', 'value'),
-         State('login-password', 'value'),
-         State('user-session', 'data')],
-        prevent_initial_call=True
-    )
-    def handle_login_form(login_clicks, username, password, session_data):
-        """Handle login form submission"""
-        
-        if not login_clicks or login_clicks == 0:
-            raise PreventUpdate
-        
-        # If OAuth is available, redirect to Google OAuth
-        if OAUTH_AVAILABLE:
-            return False, "", no_update, '/auth/login'
-        
-        # Fallback to traditional login
-        if not username or not password:
-            return True, "Please enter both username and password.", no_update, no_update
-        
-        user = validate_user(username.strip(), password)
-        
-        if user:
-            user_data = {
-                'user_id': user['id'],
-                'username': user['username'],
-                'role': user.get('role', 'user'),
-                'authenticated': True,
-                'auth_method': 'fallback'
-            }
-            return False, "", user_data, '/main'
-        else:
-            return True, "Invalid username or password. Please try again.", no_update, no_update
-
-# URL error handling callback (safe - no form dependencies)
+# Session synchronization callback (keeps session in sync with OAuth)
 @callback(
-    [Output('login-alert', 'is_open', allow_duplicate=True),
-     Output('login-alert', 'children', allow_duplicate=True),
-     Output('login-alert', 'color')],
-    [Input('url', 'search')],
+    Output('current-user-info', 'data'),
+    [Input('refresh-interval', 'n_intervals')],
+    [State('user-session', 'data')],
     prevent_initial_call=True
 )
-def handle_url_errors(search_params):
-    """Handle authentication errors from URL parameters."""
-    
-    if not search_params:
-        return False, "", "danger"
-    
-    # Parse URL parameters
-    from urllib.parse import parse_qs
-    try:
-        params = parse_qs(search_params.lstrip('?'))
-        error_type = params.get('error', [None])[0]
-        
-        if error_type == 'unauthorized_email':
-            return True, [
-                html.I(className="fas fa-exclamation-triangle", style={"marginRight": "0.5rem"}),
-                "Access denied. Your email address is not authorized to access this dashboard. ",
-                "Please contact the administrator for access."
-            ], "warning"
-        
-        elif error_type == 'auth_failed':
-            return True, [
-                html.I(className="fas fa-times-circle", style={"marginRight": "0.5rem"}),
-                "Authentication failed. Please try logging in again."
-            ], "danger"
-            
-        elif error_type == 'oauth_not_configured':
-            return True, [
-                html.I(className="fas fa-cog", style={"marginRight": "0.5rem"}),
-                "OAuth is not properly configured. Please contact the administrator."
-            ], "danger"
-            
-    except Exception:
-        pass
-    
-    return False, "", "danger"
-
-# Client-side callback to handle login form when it exists
-clientside_callback(
+def sync_user_session(n_intervals, session_data):
     """
-    function(pathname) {
-        // Only try to register login callback when on login page
-        if (pathname === '/login' && document.getElementById('login-submit-btn')) {
-            // Login form exists, can handle it client-side or trigger server callback
-            return true;
-        }
-        return false;
-    }
-    """,
+    Synchronize user session with OAuth status.
+    Updates every minute to keep session fresh.
+    """
+    if OAUTH_AVAILABLE:
+        try:
+            oauth_user = get_current_user()
+            oauth_authenticated = is_authenticated()
+            
+            if oauth_authenticated and oauth_user:
+                # Return OAuth user info
+                return {
+                    'user_id': oauth_user.get('id'),
+                    'username': oauth_user.get('name', oauth_user.get('email', 'User')),
+                    'email': oauth_user.get('email'),
+                    'picture': oauth_user.get('picture'),
+                    'authenticated': True,
+                    'auth_method': 'google_oauth'
+                }
+            elif session_data and session_data.get('authenticated'):
+                # Return traditional login info
+                return session_data
+            else:
+                # No authentication
+                return {}
+        except Exception as e:
+            print(f"Error syncing user session: {e}")
+            return session_data or {}
+    else:
+        # OAuth not available, return session data
+        return session_data or {}
+
+# Authentication status check callback
+@callback(
     Output('page-access-check', 'children'),
-    [Input('url', 'pathname')]
+    [Input('url', 'pathname')],
+    [State('user-session', 'data'),
+     State('current-user-info', 'data')],
+    prevent_initial_call=True
 )
+def check_page_access(pathname, session_data, user_info):
+    """
+    Check if user has access to the current page.
+    Provides feedback without conflicting with other callbacks.
+    """
+    
+    # Protected routes
+    protected_routes = ['/main', '/reports', '/analytics', '/upload', '/settings']
+    
+    if pathname in protected_routes:
+        # Check authentication
+        oauth_authenticated = is_authenticated() if OAUTH_AVAILABLE else False
+        dash_authenticated = session_data and session_data.get('authenticated', False)
+        
+        if not (oauth_authenticated or dash_authenticated):
+            print(f"Access denied to {pathname} - user not authenticated")
+            return "access_denied"
+        else:
+            print(f"Access granted to {pathname}")
+            return "access_granted"
+    
+    return "public_page"
+
+# OAuth logout handling (if OAuth is available)
+if OAUTH_AVAILABLE:
+    @callback(
+        [Output('user-session', 'data', allow_duplicate=True),
+         Output('url', 'pathname', allow_duplicate=True)],
+        [Input('url', 'pathname')],
+        [State('user-session', 'data')],
+        prevent_initial_call=True
+    )
+    def handle_oauth_logout(pathname, session_data):
+        """
+        Handle OAuth logout when user visits logout routes.
+        """
+        if pathname == '/auth/logout':
+            # Clear local session and redirect
+            return {}, '/'
+        
+        return no_update, no_update
+
+# Session cleanup callback
+@callback(
+    Output('user-session', 'data', allow_duplicate=True),
+    [Input('url', 'pathname')],
+    [State('user-session', 'data')],
+    prevent_initial_call=True
+)
+def cleanup_session_on_logout(pathname, session_data):
+    """
+    Clean up session data when user explicitly logs out.
+    """
+    logout_routes = ['/logout', '/auth/logout']
+    
+    if pathname in logout_routes:
+        print("Cleaning up user session on logout")
+        return {}
+    
+    return no_update
+
+# Debug callback for development (optional)
+@callback(
+    Output('page-navigation-status', 'data'),
+    [Input('url', 'pathname'),
+     Input('current-user-info', 'data')],
+    prevent_initial_call=True
+)
+def update_navigation_status(pathname, user_info):
+    """
+    Update navigation status for debugging and conditional rendering.
+    """
+    is_authenticated_user = bool(user_info and user_info.get('authenticated'))
+    
+    return {
+        'current_page': pathname,
+        'is_authenticated': is_authenticated_user,
+        'auth_method': user_info.get('auth_method') if user_info else None,
+        'user_name': user_info.get('username') if user_info else None
+    }
+
+# REMOVED: All login form related callbacks are now in routing_callback.py
+# This prevents the duplicate output conflicts
+
+print("✓ Auth callback loaded - no login form conflicts")
