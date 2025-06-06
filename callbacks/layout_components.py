@@ -53,7 +53,7 @@ def create_footer():
             html.Div(className="footer-content", children=[
                 # Footer logo and links
                 html.Div(className="footer-logo", children=[
-                    html.Img(src="/assets/img/logo-white.png", alt="Logo", style={"height": "28px", "width": "auto"}),
+                    #html.Img(src="/assets/img/logo-white.png", alt="Logo", style={"height": "28px", "width": "auto"}),
                     html.Span("Swaccha Andhra", style={"fontWeight": "600", "fontSize": "1rem"})
                 ]),
                 
